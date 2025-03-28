@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "system-ui";
+    color:white;
+    /*font-family: "Inter";*/
+    /*font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";*/
+}
+
+
+
+:root {
+  --black-1:#000;
+  --black-2:#242424;
+  --black-3:#222222; /* negro sobre negro 1  */
+  --grey:#555;
+  --grey-2:#9C9C9C;/* grey sobre black 2  */
+
+}
+
+html {
+    /* height: 100%; */
+    overflow-y: scroll;
+    /* overflow: hidden; */
+    padding: 1rem;
+    /* box-sizing: border-box; */
+    background-color: red;
+}
+
+body {
+    /* height: 100%; */
+    /* overflow: auto; */
+    background-color:var(--black-1) ;
+    display: grid;
+    grid-template-columns: 13rem auto;
+    padding: 1rem;
+    /* background-color: red; */
+}
+
+.Principal_Aside{
+    background-color: #90ddf0;
+    height: 100%;
+}
+.Principal_Main{
+    background-color: #ffa69e;
+    height: 100%;
+
+}
+header{
+    backdrop-filter: blur(5px);
+    position: sticky;
+    top: 0px;
+    animation: adjust-header linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+}
+@keyframes adjust-header{
+    to{
+        background-color: rgba(0, 0, 0, .3);
+        font-size: 12px;
+        height: 32px;
+        border-radius: 0;
+    }
+}
