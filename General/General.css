@@ -46,7 +46,12 @@ body {
     transition: grid-template-columns 0.3s ease-in-out;
 
 }
-
+ul{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
 
 
 

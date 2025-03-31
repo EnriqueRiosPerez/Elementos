@@ -59,7 +59,9 @@
             overflow-y: auto;
             padding: 1rem;
             color: #919EAB;
-
+            /* color: #919EAB; */
+           
+            
             /* background-color: pink; */
         }
     }
@@ -67,36 +69,53 @@
 
 .Aside_Nav {
 
-    list-style-type: none;
+    /* list-style-type: none; */
     /* display: flex; */
     display: flex;
     flex-direction: column;
     gap: 4px;
 
+    &>li:has(.drop) {
+        /* background-color: red; */
+        display: grid;
+        grid-template-rows: 1fr 0fr;
+        overflow: hidden;
+        /* padding: 0 0.35rem; */
+        transition: grid-template-rows 0.3s ease-in-out;
+        &>.drop {
+            grid-template-columns: auto 1fr auto;
+
+        }
+    }
     &>li {
-      
+        &.open{
+
+            grid-template-rows: 1fr 1fr;
+        }
         &>a {
             display: grid;
             grid-template-columns: auto 1fr;
             padding: 1rem;
             justify-items: center;
             align-items: center;
-            text-decoration: none;
-            color: #919EAB;
+            /* text-decoration: none; */
+            color: #fff;
+            /* color: #919EAB; */
             border-radius: 0.5rem;
             font-weight: 500;
             font-size: 1rem;
+
             &>span {
-               
+
                 width: 100%;
                 height: 100%;
 
             }
 
-            &.drop {
+            /* &.drop {
                 grid-template-columns: auto 1fr auto;
 
-            }
+            } */
 
             &:hover {
                 cursor: pointer;
@@ -105,9 +124,27 @@
             }
         }
 
+        &>div {
+            min-height: 0;
+            list-style: none;
+            padding: 0 1rem;
+            display: grid;
+            gap: 1rem;
+            &>ul{
+                &>li{
+                    padding: 0rem 1rem;
+                    &>a{
+                        color: #919EAB;
+                    }
+                }
+            }
+            
+        }
+
 
     }
 }
+
 
 @media (width <900px) {
     :root {
