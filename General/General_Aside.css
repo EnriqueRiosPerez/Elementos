@@ -1,0 +1,124 @@
+:root {
+    --animate-aside-time: 0.3s;
+    --hover--li: rgba(145 158 171 / 0.08);
+}
+
+.Principal_Aside {
+    width: var(--wid-aside);
+    transition: width var(--animate-aside-time) ease-in-out;
+
+    &>.Aside_Container {
+        background-color: var(--verde-1);
+        border-right: 1px solid rgb(145 158 171 / 0.3);
+        z-index: 1200;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: calc(var(--wid-aside) + var(--paddin-pruebas));
+        width: calc(var(--wid-aside));
+        height: 100%;
+        display: grid;
+
+        transition: width var(--animate-aside-time) ease-in-out, z-index var(--animate-aside-time) ease-in-out;
+        grid-template-rows: var(--heigth-header) 1fr;
+
+        &>::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        &>::-webkit-scrollbar-thumb {
+            background-color: #8B8B8B;
+            border-radius: 4px;
+
+        }
+
+        &>::-webkit-scrollbar-thumb:hover {
+            background: #6F6F6F;
+
+        }
+
+        &>header {
+            display: flex;
+            align-items: center;
+
+            padding: 1rem;
+
+            &>img {
+
+                height: 100%;
+
+                object-fit: fill;
+                border-radius: 0.375rem 0.375rem 0rem 0rem;
+            }
+
+        }
+
+        &>section {
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 1rem;
+            color: #919EAB;
+
+            /* background-color: pink; */
+        }
+    }
+}
+
+.Aside_Nav {
+
+    list-style-type: none;
+    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &>li {
+      
+        &>a {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            padding: 1rem;
+            justify-items: center;
+            align-items: center;
+            text-decoration: none;
+            color: #919EAB;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            &>span {
+               
+                width: 100%;
+                height: 100%;
+
+            }
+
+            &.drop {
+                grid-template-columns: auto 1fr auto;
+
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: var(--hover--li);
+
+            }
+        }
+
+
+    }
+}
+
+@media (width <900px) {
+    :root {
+
+        --wid-aside: 0rem;
+    }
+
+    .Principal_Aside {
+        &>.Aside_Container {
+            z-index: -20000;
+            transition: z-index var(--animate-aside-time) ease-in-out;
+        }
+    }
+}
