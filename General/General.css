@@ -33,7 +33,7 @@ html {
 }
 
 body {
-    background-color: var(--black-1);
+    background-color: #000;
     min-height: 100%;
 }
 
