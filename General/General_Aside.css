@@ -82,8 +82,14 @@
         transition: grid-template-rows 0.3s ease-in-out , gap 0.3s ease-in-out;
 
         &>.drop {
+            /* pointer-events: none; */
             grid-template-columns: auto 1fr auto;
+            /* &:hover {
+                cursor: pointer;
+                background-color: #2f2f2f;
+            } */
         }
+        
     }
 
     &>li {
@@ -110,6 +116,7 @@
             font-weight: 500;
             font-size: 1rem;
             gap:0rem 1rem;
+            user-select: none;
             &>span {
 
                 width: 100%;
@@ -134,8 +141,6 @@
             &:hover {
                 cursor: pointer;
                 background-color: #2f2f2f;
-                /* background-color: var(--hover--li); */
-
             }
         }
 
