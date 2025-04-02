@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aside Minimal UI Replication</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+        }
+
+        :root {
+            --heigth-header: 75px;
+            --wid-aside: 18rem;
+            --transition: 0.3s;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .Body_Container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .Principal_Aside {
+            width: var(--wid-aside);
+            background-color: #1E1E1E;
+            transition: width var(--transition);
+            display: grid;
+            grid-template-rows: var(--heigth-header) 1fr;
+            overflow: hidden;
+        }
+
+        .Principal_Aside.collapsed {
+            width: 80px;
+        }
+
+        .Principal_Aside.drawer-open {
+            position: absolute;
+            width: var(--wid-aside);
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        @media (max-width: 900px) {
+            .Principal_Aside {
+                width: 0;
+                position: absolute;
+            }
+
+            .Principal_Aside.drawer-open {
+                width: var(--wid-aside);
+            }
+        }
+
+        .Principal_Main {
+            flex-grow: 1;
+            background-color: #282828;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Principal_Main > header {
+            background-color: #333;
+            position: sticky;
+            top: 0;
+            height: var(--heigth-header);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            z-index: 100;
+        }
+
+        .Principal_Main > section {
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Body_Container">
+        <aside class="Principal_Aside">
+            <header> Header del Aside </header>
+            <section> Contenido del Aside </section>
+        </aside>
+
+        <main class="Principal_Main">
+            <header>
+                <button id="Button">
+                    <img src="/SVG/Menu.svg" alt="Menu">
+                </button>
+                Header Principal
+            </header>
+            <section>
+                Contenido Principal
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const button = document.getElementById("Button");
+        const Principal_Aside = document.querySelector(".Principal_Aside");
+
+        button.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                Principal_Aside.classList.toggle("drawer-open");
+            } else {
+                Principal_Aside.classList.toggle("collapsed");
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 900) {
+                Principal_Aside.classList.remove("drawer-open");
+            }
+        });
+    </script>
+</body>
+
+</html>
