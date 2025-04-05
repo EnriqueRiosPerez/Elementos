@@ -11,8 +11,9 @@
     --nav-width: 18rem;
 }
 
+
 .Principal_Container {
-    min-height: 100dvh;
+    min-height: 100vh;
     background-color: #9FCC2E;
     display: flex;
     width: 100%;
@@ -21,11 +22,10 @@
 
 .Principal_Nav {
     width: var(--nav-width);
-    background-color: rgb(35 35 35 / 0.5);
-
-    /* backdrop-filter: blur(6px); */
+    background-color:red; 
+    /* rgb(35 35 35 / 0.5); */
     transition: width 0.3s ease-in-out;
-    /* padding: 1rem; */
+    overflow-x:hidden ;
 }
 
 .Principal_Main {
@@ -37,8 +37,10 @@
 
 }
 
-.Principal_Nav.cambio {
-    /* background-color: red  */
+
+
+
+.Principal_Nav.cambio {   
     width: 0rem;
 }
 
@@ -46,34 +48,36 @@
     width: 100%;
 }
 
-.Principal_Nav.cambio_2+.Principal_Main {
+.Principal_Nav.cambio_2 + .Principal_Main {
     transition: none;
 }
 
+
 @media (width <900px) {
-    :root {
-        --nav-width: 0rem;
-    }
-
-
-    .Principal_Nav {
-        width: var(--nav-width);
-        transition: width 0.3s ease-in-out;
-    }
-
-   .cambio_2 {
-
-        width: 100%;
-        height: 100%;
+    .Principal_Nav{
         position: fixed;
-        &>.Principal_Nav_Container{
+        top: 0;
+        left: 0;
+        width: 0rem;
+        height: 100%;
+        /* z-index: 0; */
+        
+
+    }
+    .Principal_Main{
+        width: 100%;
+    }
+    .cambio_2 {
+       
+        width: 100%;
+   
+        
+        /* &>.Principal_Nav_Container{
             backdrop-filter: blur(6px);
             width: 18rem;
             transition: width 0.3s ease-in-out;
-        }
+        } */
 
     }
-
-
 
 }

@@ -31,7 +31,7 @@ html {
     min-height: 100vh;
     padding: var(--paddin-pruebas);
     width: 100%;
-    padding: 1rem;
+    /* padding: 1rem; */
     
     
 }
@@ -39,7 +39,7 @@ html {
 body {
     background-color: red;
     /* min-height:  calc(100vh - 2rem); */
-    min-height:  calc(100vh - 2rem);
+    min-height:  calc(100vh);
     display: flex;
     /* height: 100%; */
     width: 100%;

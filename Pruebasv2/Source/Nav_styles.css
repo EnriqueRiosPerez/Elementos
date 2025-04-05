@@ -7,7 +7,11 @@
     display: grid;
     grid-template-rows: 70px 1fr;
 
+
+
     overflow-x: hidden;
+
+    transition: width 0.3s ease-in-out;
     &>header{
         height: 100%;
         width: 100%;
@@ -20,7 +24,7 @@
 @media (width <900px) {
     .Principal_Nav_Container{
         width: 0rem;
-        transition: width 0.3s ease-in-out;
+        /* transition: width 0.3s ease-in-out; */
     }
     
 }
