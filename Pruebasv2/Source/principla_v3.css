@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "system-ui";
+    color: white;
+}
+
+:root {
+    --nav-width: 18rem;
+}
+
+.Principal_Container {
+    min-height: 100vh;
+    background-color: #9FCC2E;
+    display: flex;
+    width: 100%;
+}
+
+.Principal_Nav {
+    width: var(--nav-width);
+    background-color: red;
+    transition: width 0.3s ease-in-out;
+    overflow-x: hidden;
+}
+
+.Principal_Main {
+    width: calc(100% - var(--nav-width));
+    background-color: #222222;
+    transition: width 0.3s ease-in-out;
+}
+
+/* Ocultar el Nav */
+.Principal_Nav.cambio {
+    width: 0rem;
+}
+.Principal_Nav.cambio + .Principal_Main {
+    width: 100%;
+}
+
+/* Para móviles */
+@media (width < 900px) {
+    .Principal_Nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0rem;
+        transition: width 0.3s ease-in-out;
+        z-index: 100;
+    }
+
+    .Principal_Nav.Show_Nav {
+        width: 100%;
+        /* width: var(--nav-width); O puedes usar 100% si quieres que cubra toda la pantalla */
+    }
+
+    .Principal_Main {
+        width: 100%;
+        transition: none;
+        /* No necesita transición, el nav está encima */
+    }
+
+    /* Opcional: agregar fondo difuso si quieres que se note la apertura del menú */
+    
+    .Show_Nav .Principal_Nav_Container {
+        backdrop-filter: blur(6px);
+        transition: backdrop-filter 0.3s ease-in-out;
+    }
+  
+   
+}

@@ -45,6 +45,7 @@
 }
 
 .Principal_Nav.cambio+.Principal_Main {
+    
     width: 100%;
 }
 
@@ -61,17 +62,14 @@
         width: 0rem;
         height: 100%;
         /* z-index: 0; */
-        
-
     }
     .Principal_Main{
         width: 100%;
+        transition: none;
+        /* transition: width 0.3s ease-in-out; */
     }
     .cambio_2 {
-       
         width: 100%;
-   
-        
         /* &>.Principal_Nav_Container{
             backdrop-filter: blur(6px);
             width: 18rem;

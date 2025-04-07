@@ -10,6 +10,11 @@ Boton.addEventListener("click", async () => {
     } else {
 
         Principal_Nav.classList.toggle("cambio")
+        // se agrego esta linea en js
+        Principal_Nav.classList.contains("Show_Nav") ? Principal_Nav.classList.remove("Show_Nav") : console.log("No tiene cambio")
+        Principal_Nav.classList.contains("cambio_2") ? Principal_Nav.classList.remove("cambio_2") : console.log("No tiene cambio")
+
+
     }
 })
 Principal_Nav.addEventListener("click", async (e) => {
