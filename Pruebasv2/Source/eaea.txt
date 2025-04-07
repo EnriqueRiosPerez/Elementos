@@ -1,0 +1,70 @@
+.Principal_Container {
+    min-height: 100vh;
+    background-color: #000;
+    display: flex;
+    width: 100%;
+    overflow: hidden; /* Evita el scroll en el contenedor principal */
+}
+
+.Principal_Nav {
+    width: var(--nav-width);
+    transition: width 0.3s ease-in-out;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    position: fixed; /* Fija el nav en la pantalla */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.Principal_Nav_Container {
+    background-color: #242424;
+    width: 18rem;
+    height: 100%;
+    position: relative; /* Mantiene el contenedor dentro del nav */
+}
+
+.Principal_Main {
+    width: calc(100% - var(--nav-width));
+    transition: width 0.3s ease-in-out;
+    padding: 1rem;
+    margin-left: var(--nav-width); /* Añade margen para el nav */
+    overflow-y: auto; /* Permite scroll solo en el main */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Ajustes para cuando el nav está colapsado */
+.Principal_Nav.cambio {
+    width: 0rem;
+}
+
+.Principal_Nav.cambio + .Principal_Main {
+    width: 100%;
+    margin-left: 0;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (width < 900px) {
+    .Principal_Nav {
+        width: 0rem;
+    }
+
+    .Principal_Main {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .cambio_2 {
+        width: 100%;
+    }
+
+    .Principal_Nav.cambio_2 {
+        width: 18rem;
+    }
+
+    .Principal_Nav.cambio_2 + .Principal_Main {
+        margin-left: 18rem;
+    }
+}

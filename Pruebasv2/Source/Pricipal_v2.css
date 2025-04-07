@@ -14,7 +14,8 @@
 
 .Principal_Container {
     min-height: 100vh;
-    background-color: #9FCC2E;
+    /* background-color: #9FCC2E; */
+    background-color: #000;
     display: flex;
     width: 100%;
 
@@ -26,14 +27,17 @@
     /* rgb(35 35 35 / 0.5); */
     transition: width 0.3s ease-in-out;
     overflow-x:hidden ;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
 }
 
 .Principal_Main {
     width: calc(100% - var(--nav-width));
-    /* flex-grow: 1; */
-    /* width: 100%; */
-    background-color: #222222;
+
+    /* background-color: #222222; */
     transition: width 0.3s ease-in-out;
+    padding: 1rem;
 
 }
 
@@ -58,7 +62,7 @@
     .Principal_Nav{
         position: fixed;
         top: 0;
-        left: 0;
+        left: 0;    
         width: 0rem;
         height: 100%;
         /* z-index: 0; */
@@ -79,3 +83,33 @@
     }
 
 }
+
+
+
+
+
+.Principal_Main {
+    /* background-color: #ffa69e; */
+    /* min-height: 100vh; */
+
+    &>header {
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0px;
+        height: var(--heigth-header);
+        animation: adjust-header linear both;
+        animation-timeline: scroll();
+        animation-range: 0 100px;
+    }
+  
+}
+
+@keyframes adjust-header {
+    to {
+        background-color: rgba(0, 0, 0, .3);
+        font-size: 12px;
+
+        border-radius: 0;
+    }
+}
+
