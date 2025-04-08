@@ -11,6 +11,12 @@
     --nav-width: 18rem;
 }
 
+ul{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
 
 .Principal_Container {
     min-height: 100vh;
