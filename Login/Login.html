@@ -5,218 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        /*input general */
-        .Input__Container {
-            position: relative;
-            width: 100%;
-            padding: 1rem 0 0 0;
-            display: flex;
-            flex-direction: column;
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link rel="stylesheet" href="General_Inputs.css">
+    <link rel="stylesheet" href="General_Login.css">
 
-            textarea {
-                resize: none;
-                min-height: 100px;
-                max-height: 150px;
-                field-sizing: content;
-
-            }
-
-            :is(input, textarea, select) {
-                width: 100%;
-                border: 1px solid #000;
-                /*border-radius: 0.8rem;*/
-                border-radius: 10px;
-                background: none;
-                /*padding: 1rem;*/
-                padding: 1REM;
-                font-size: 1rem;
-                color: #000;
-                transition: border 300ms cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            :is(input, textarea)::placeholder {
-                color: transparent;
-                user-select: none;
-            }
-
-            /*cuando esta focus como se muestra el placeholder*/
-            :is(input, textarea):focus::placeholder {
-
-                color: red;
-            }
-
-            /*estilo cuando el input esta seleccionado */
-            :is(input, textarea, select):focus {
-                outline: none;
-                /*border: 1.5px solid var(--Blue_Title);*/
-                border: 1.5px solid orange;
-            }
-
-            /*para cuando se esta escribiendo la tarjeta no se devuelva a su lugar */
-            :is(input, textarea, select):not(:placeholder-shown)~label {
-                transform: translateY(-50%);
-                background-color: white;
-                /* padding: 0.1rem; */
-                color: #000;
-                font-weight: 500;
-            }
-
-            /*cuando el input esta focus mueve la tarjeta*/
-            :is(input, textarea, select):focus~label {
-                transform: translateY(-50%) scale(0.8) ;
-                background-color: #fff;
-                margin: auto auto auto -0.2rem;
-                padding: 0rem 0.2rem;
-                /* padding: 0rem 1rem; */
-                /* background-color: white;
-                padding: 0.5rem; */
-                /*color: var(--Blue_Title);*/
-                color: sienna;
-                font-weight: 500;
-            }
-
-            label {
-                user-select: none;
-                font-size: 1rem;
-                position: absolute;
-                /* left: 0.9rem; */
-                margin: auto auto auto 1rem;
-                /* padding: 0rem 1rem; */
-                color: red;
-                pointer-events: none;
-                /* transform: translateY(50%); */
-                transform: translateY(1rem) scale(1);
-                /* transform: translateY(1rem) scale(.7); */
-                /* transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), padding cubic-bezier(0.4, 0, 0.2, 1), margin cubic-bezier(0.4, 0, 0.2, 1); */
-                /* transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), padding cubic-bezier(0.4, 0, 0.2, 1), margin cubic-bezier(0.4, 0, 0.2, 1); */
-                transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            :is(input[type="text"], textarea)[readonly] {
-                /* Your styles here */
-                /*background-color: rgba(58, 53, 65, 0.12);*/
-                /*background-color: #F6F6F6;*/
-                background-color: #fff;
-            }
-
-            :is(input[type="text"], textarea)[readonly]~label {
-                /* Your styles here */
-                /*background-color: rgba(58, 53, 65, 0.12);*/
-                /*background-color: #F6F6F6;*/
-                background: linear-gradient(white 50%, var(--backgroud_100) 50%);
-                /*background-color:transparent;*/
-            }
-
-        }
-
-
-        /* 
-*,
-::after,
-::before {
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    margin: 80px;
-    font-family: "Plus Jakarta Sans", sans-serif;
-}
- */
-.wrapper {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 80px;
-}
-
-.title {
-    margin: 1rem 0;
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.wrapper :is(h1, h2, h3, h4){
-    color: red;
-}
-
-
-.form {
-    width: max-content;
-    margin: 0 auto;
-}
-
-.label {
-    display: grid;
-    grid-template-areas: "input";
-}
-
-.label__name {
-    grid-area: input;
-
-    width: max-content;
-    z-index: 100;
-    margin-left: 1rem;
-    padding: 0 .5rem;
-    align-self: center;
-
-    transition: transform .2s;
-    transform-origin: center left;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.input {
-    grid-area: input;
-
-    width: 300px;
-    font: inherit;
-    border-radius: 10px;
-    border: 1px solid gray;
-    padding: .7rem 1.5rem;
-}
-
-
-.input:where(:focus, :not(:placeholder-shown)) + .label__name{
-    transform: translateY(-50%) scale(.7);
-    background-color: white;
-}
-    </style>
 </head>
 
 <body>
-    <!-- <div class="Principal_Container" id="Principal_Container">
-
-        <nav>
-
-        </nav>
-        <main>
-            <div>
-
-            </div>
-        </main>
-
-    </div> -->
-    <form class="form">
-
-        <label for="input1" class="label">
-
-            <input type="text" placeholder=" " class="input" id="input1">
-
-            <span class="label__name">opciones largas de los menus</span>
-
-        </label>
-
-    </form>
+    <div class="Principal_Container" id="Principal_Container">
+        <header>
+            <img src="/MM_logo.svg" alt="" srcset="">
+        </header>
 
 
-    <div class="Input__Container">
-        <input type="text" id="rere3" name="Phone" placeholder="33-23-23-23">
-        <label for="name">opciones largas de los menus</label>
+        <div class="Principal_Container_Div">
+            <nav>
+                <h3>Hi, Welcome back</h3>
+                <img src="/Imagende_entrada.webp" alt="" srcset="">
+            </nav>
+            <main>
+                <div class="Form_Container">
+
+
+                    <h2>Maintenance Management</h2>
+
+                    <h3>Sing in your account</h3>
+                    <div class="Input__Container">
+                        <input type="text" id="rere3" name="Phone" placeholder="33-23-23-23">
+                        <label for="name">opciones largas de los menus</label>
+                    </div>
+
+
+                    <div class="Input__Container">
+                        <input type="password" id="rere3" name="password" placeholder="Password" autocomplete="off">
+                        <label for="name">opciones largas de los menus</label>
+                                                <button tabindex="-1" type="button" class="Button__Hide" id="Button_Show_Password"><i class="fa-solid fa-eye"></i></button>
+
+                    </div>
+
+                    <!-- <div class="Input__Container">
+                        <input id="Form__Password__Input" name="password" class="Section__Form__Input Form__Password__Input" type="password"  required="" autocomplete="off" placeholder="Password"/>
+                        <label class="Section__Form__Label">Password</label>
+                    </div> -->
+                </div>
+            </main>
+        </div>
+
     </div>
+
+
+
+
 </body>
 
 </html>

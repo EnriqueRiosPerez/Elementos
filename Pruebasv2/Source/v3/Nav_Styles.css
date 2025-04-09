@@ -10,6 +10,8 @@
     display: grid;
     grid-template-rows: var(--general-header-height) 1fr;
 
+
+    
     &>header {
         display: flex;
         justify-content: flex-start;

@@ -1,0 +1,117 @@
+::-ms-reveal {
+    display: none;
+}
+
+
+.Input__Container {
+    position: relative;
+    width: 100%;
+    padding: 1rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+
+    textarea {
+        resize: none;
+        min-height: 100px;
+        max-height: 150px;
+        field-sizing: content;
+
+    }
+
+    :is(input, textarea, select) {
+        width: 100%;
+        border: 1px solid #000;
+        /*border-radius: 0.8rem;*/
+        border-radius: 10px;
+        background: none;
+        /*padding: 1rem;*/
+        padding: 1REM;
+        font-size: 1rem;
+        color: #000;
+        transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    :is(input, textarea)::placeholder {
+        color: transparent;
+        user-select: none;
+    }
+
+    /*cuando esta focus como se muestra el placeholder*/
+    :is(input, textarea):focus::placeholder {
+
+        color: red;
+    }
+
+    /*estilo cuando el input esta seleccionado */
+    :is(input, textarea, select):focus {
+        outline: none;
+        /*border: 1.5px solid var(--Blue_Title);*/
+        border: 1px solid orange;
+    }
+
+    /*para cuando se esta escribiendo la tarjeta no se devuelva a su lugar */
+    :is(input, textarea, select):not(:placeholder-shown)~label {
+        transform: translateY(-50%) scale(0.8);
+        background-color: #fff;
+        margin: auto auto auto -0.2rem;
+        /* padding: 0rem 0.2rem; */
+        color: green;
+        /* font-weight: 500; */
+    }
+
+    /*cuando el input esta focus mueve la tarjeta*/
+    :is(input, textarea, select):focus~label {
+        transform: translateY(-50%) scale(0.8) ;
+        background-color: #fff;
+        /* margin: auto auto auto1r; */
+        /* padding: 0rem 0.2rem; */
+        color: sienna;
+        /* font-weight: 500; */
+        transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    label {
+        user-select: none;
+        font-size: 1rem;
+        position: absolute;
+        margin: auto auto auto 1rem;
+        color: red;
+        padding: 0rem 0.2rem;
+        pointer-events: none;
+      
+        transform: translateY(1rem) scale(0.8);
+        transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    :is(input[type="text"], textarea)[readonly] {
+        /* Your styles here */
+        /*background-color: rgba(58, 53, 65, 0.12);*/
+        /*background-color: #F6F6F6;*/
+        background-color: #fff;
+    }
+
+    :is(input[type="text"], textarea)[readonly]~label {
+        /* Your styles here */
+        /*background-color: rgba(58, 53, 65, 0.12);*/
+        /*background-color: #F6F6F6;*/
+        background: linear-gradient(white 50%, var(--backgroud_100) 50%);
+        /*background-color:transparent;*/
+    }
+
+}
+
+
+.Button__Hide {
+    height: calc(100% - 1rem);
+    width: 55px;
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+    .Button__Hide > i {
+        margin: auto;
+        pointer-events: none;
+    }
