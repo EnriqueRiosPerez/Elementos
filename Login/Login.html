@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link rel="stylesheet" href="General_Root.css">
     <link rel="stylesheet" href="General_Inputs.css">
     <link rel="stylesheet" href="General_Login.css">
+    <link rel="stylesheet" href="General_Buttons.css">
 
 </head>
 
@@ -25,35 +27,52 @@
             </nav>
             <main>
                 <div class="Form_Container">
+                    <div>
 
+                        <h2>Maintenance Management</h2>
+    
+                        <h3>Sign in to your account</h3>
+                    </div>
 
-                    <h2>Maintenance Management</h2>
-
-                    <h3>Sing in your account</h3>
                     <div class="Input__Container">
-                        <input type="text" id="rere3" name="Phone" placeholder="33-23-23-23">
-                        <label for="name">opciones largas de los menus</label>
+                        <input type="text" id="rere3" name="User" placeholder="User">
+                        <label for="name">User</label>
                     </div>
 
 
                     <div class="Input__Container">
-                        <input type="password" id="rere3" name="password" placeholder="Password" autocomplete="off">
-                        <label for="name">opciones largas de los menus</label>
-                                                <button tabindex="-1" type="button" class="Button__Hide" id="Button_Show_Password"><i class="fa-solid fa-eye"></i></button>
+                        <input type="password"  name="password" placeholder="Password" autocomplete="off" id="Form__Password__Input">
+                        <label for="name">Password</label>
+                        <button tabindex="-1" type="button" class="Button__Hide" id="Button_Show_Password"><i
+                                class="fa-solid fa-eye"></i>
+                        </button>
 
                     </div>
 
-                    <!-- <div class="Input__Container">
-                        <input id="Form__Password__Input" name="password" class="Section__Form__Input Form__Password__Input" type="password"  required="" autocomplete="off" placeholder="Password"/>
-                        <label class="Section__Form__Label">Password</label>
-                    </div> -->
+
+                    <button type="button" class="Button_Base">Sign in</button>
+
                 </div>
             </main>
         </div>
 
     </div>
 
+    <script>
+        let Button_Show_Password = document.getElementById("Button_Show_Password")
+        let Input_Password = document.getElementById("Form__Password__Input")
+        Button_Show_Password.addEventListener("click", (e) => {
+            let current = e.target
+            let icon = current.children[0]
+            console.log(current.children)
+            icon.classList.toggle("fa-eye")
+            icon.classList.toggle("fa-eye-slash")
+            let isEyeOpen = icon.classList.contains("fa-eye-slash");
+            console.log(isEyeOpen)
+            Input_Password.type = isEyeOpen ? "text" : "password";
 
+        })
+    </script>
 
 
 </body>

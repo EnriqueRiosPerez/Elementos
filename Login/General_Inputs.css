@@ -20,7 +20,9 @@
 
     :is(input, textarea, select) {
         width: 100%;
-        border: 1px solid #000;
+        /* border: 1px solid #000; */
+        border: none;
+        outline: 1px solid #E9ECEE;
         /*border-radius: 0.8rem;*/
         border-radius: 10px;
         background: none;
@@ -39,34 +41,37 @@
     /*cuando esta focus como se muestra el placeholder*/
     :is(input, textarea):focus::placeholder {
 
-        color: red;
+        color: var(--placeholder-input-label-color);
     }
 
     /*estilo cuando el input esta seleccionado */
     :is(input, textarea, select):focus {
-        outline: none;
+        /* outline: none; */
         /*border: 1.5px solid var(--Blue_Title);*/
-        border: 1px solid orange;
+        /* border: 1px solid var(--placeholder-input-label-color); */
+        
+        outline: 2px solid var(--focus-input-label-color);
+        transition: outline 50ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /*para cuando se esta escribiendo la tarjeta no se devuelva a su lugar */
     :is(input, textarea, select):not(:placeholder-shown)~label {
-        transform: translateY(-50%) scale(0.8);
+        transform: translateY(-57%) scale(0.8);
         background-color: #fff;
-        margin: auto auto auto -0.2rem;
-        /* padding: 0rem 0.2rem; */
-        color: green;
-        /* font-weight: 500; */
+        margin: auto auto auto 0.6rem;
+        font-weight: 600;
+        color: var(--focus-input-label-color);
+     
     }
 
     /*cuando el input esta focus mueve la tarjeta*/
     :is(input, textarea, select):focus~label {
-        transform: translateY(-50%) scale(0.8) ;
+        transform: translateY(-57%) scale(0.8) ;
         background-color: #fff;
-        /* margin: auto auto auto1r; */
-        /* padding: 0rem 0.2rem; */
-        color: sienna;
-        /* font-weight: 500; */
+        margin: auto auto auto 0.6rem;
+        font-weight: 600;
+        color: var(--focus-input-label-color);
+     
         transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -75,11 +80,11 @@
         font-size: 1rem;
         position: absolute;
         margin: auto auto auto 1rem;
-        color: red;
+        color: var(--placeholder-input-label-color);
         padding: 0rem 0.2rem;
         pointer-events: none;
       
-        transform: translateY(1rem) scale(0.8);
+        transform: translateY(1rem) scale(1);
         transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -105,7 +110,9 @@
     height: calc(100% - 1rem);
     width: 55px;
     position: absolute;
-    right: 0;
+    margin: auto;
+    right: 0rem;
+    top: 1rem;
     background-color: transparent;
     border: none;
     cursor: pointer;

@@ -4,8 +4,11 @@
     margin: 0;
     padding: 0;
     font-family: "system-ui";
-    color: white;
+    /* color: white; */
 
+}
+body{
+    overflow: hidden;
 }
 
 .Principal_Container {
@@ -19,7 +22,7 @@
 
     &>header{
         height: 100%;
-        background-color: orange;
+        /* background-color: orange; */
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -29,7 +32,7 @@
         }
     }
     &>.Principal_Container_Div{
-        background-color: salmon;
+        /* background-color: #fff; */
         display: grid;
         grid-template-columns: 480px 1fr ;
         justify-items: center;
@@ -48,24 +51,59 @@
                 font-size: 2rem;
             }
             &>img{
-              width: 400px;
-              height: 400px;
+              width: 100%;
+              object-fit: fill;
             }
         }
         &>main{
             width: 100%;
             height: 100%;
+            width: 100%;
+            height: 100%;
+            display: flex
+;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+   
         }
     }
 
 
 }
+.Form_Container{
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    gap: 1rem;
+    &>div:first-child{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        &>h3{
+            font-weight: 400;
+        }
+    }
+}
+
+
 
 @media (width <900px) {
     .Principal_Container{
         &>.Principal_Container_Div{
             grid-template-columns: 0px 1fr ;
-            transition:grid-template-columns 250ms cubic-bezier(0.4, 0, 0.2, 1); ;
+            transition:grid-template-columns 250ms cubic-bezier(0.4, 0, 0.2, 1); 
+            &>main{
+               
+                justify-content: flex-start;
+        
+       
+            }
         }
     } 
     
