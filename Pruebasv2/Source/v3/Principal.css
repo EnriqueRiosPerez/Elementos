@@ -9,19 +9,22 @@
 
 :root {
     --nav-width: 18rem;
-    --general-header-height:72px;
+    --general-header-height: 72px;
 }
 
-ul{
+ul {
     list-style-type: none;
 }
-a{
+
+a {
     text-decoration: none;
 }
-html{
+
+html {
     background-color: #000;
 }
-body{
+
+body {
     background-color: #000;
 }
 
@@ -40,7 +43,7 @@ body{
 
 .Principal_Nav {
     width: var(--nav-width);
-    background-color:red; 
+    background-color: red;
     /* rgb(35 35 35 / 0.5); */
     transition: width 0.3s ease-in-out;
     /* overflow-x: hidden; */
@@ -56,7 +59,7 @@ body{
     transition: width 0.3s ease-in-out;
     /* padding: 1rem; */
 
-/* 
+    /* 
     &>header {
         backdrop-filter: blur(5px);
         position: sticky;
@@ -69,52 +72,64 @@ body{
 
 }
 
+.Principal_Nav_Container {
+    white-space: nowrap;
+}
 
 
-
-.Principal_Nav.cambio {   
+.Principal_Nav.cambio {
     width: 0rem;
 }
 
 .Principal_Nav.cambio+.Principal_Main {
-    
+
     width: 100%;
 }
 
-.Principal_Nav.cambio_2 + .Principal_Main {
+.Principal_Nav.cambio_2+.Principal_Main {
     transition: none;
 }
 
 
 @media (width <900px) {
-    .Principal_Nav{
+    .Principal_Nav {
         position: fixed;
         top: 0;
-        left: 0;    
+        left: 0;
         width: 0rem;
         height: 100%;
         z-index: 10;
         /* transition: none; */
+
+        /* overflow-x: hidden; */
     }
-    .Principal_Main{
+
+    .Principal_Main {
         width: 100%;
         transition: none;
         /* transition: width 0.3s ease-in-out; */
     }
+
+
     .cambio_2 {
         width: 100%;
-        transition: none; 
+        transition: none;
+
         /* &>.Principal_Nav_Container{
             backdrop-filter: blur(6px);
             width: 18rem;
             transition: width 0.3s ease-in-out;
         } */
-         &>.Principal_Nav_Container{
+        &>.Principal_Nav_Container {
             width: 18rem;
+            /* min-width: 18rem;
+            max-width: 18rem;
+            overflow-x: hidden; */
             /* transition: width 0.3s ease-in-out; */
-         }
+        }
 
     }
+  
 
 }
 
@@ -128,4 +143,3 @@ body{
         /* border-radius: 0; */
     }
 }
-
