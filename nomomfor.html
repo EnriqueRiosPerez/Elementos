@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI estilo CleanMyMac</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #1b1f36, #3d1c58);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+    }
+
+    .dashboard {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .status {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .status.green { color: #00e676; }
+    .status.orange { color: #ffb74d; }
+    .status.red { color: #ef5350; }
+    .status.blue { color: #40c4ff; }
+
+    .button {
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #5b28ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #7b48ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="card">
+      <h2>Macintosh HD</h2>
+      <div class="status green">246,22 GB disponibles</div>
+      <button class="button">Liberar</button>
+    </div>
+
+    <div class="card">
+      <h2>Memoria</h2>
+      <div class="status blue">Presión: 35%</div>
+      <button class="button">Liberar</button>
+    </div>
+
+    <div class="card">
+      <h2>Batería</h2>
+      <div class="status orange">31% - Cargando</div>
+    </div>
+
+    <div class="card">
+      <h2>CPU</h2>
+      <div class="status red">62°C</div>
+    </div>
+  </div>
+
+</body>
+</html>

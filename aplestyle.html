@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema Dark Moderno</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(145deg, #0f0f0f, #1b1b1b);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #eaeaea;
+    }
+
+    .dashboard {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    .status {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .status.blue { color: #40c4ff; }
+    .status.green { color: #00e676; }
+    .status.purple { color: #ba68c8; }
+
+    
+
+    .button {
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #2196f3;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #42a5f5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="card">
+      <h2>Estado del sistema</h2>
+      <div class="status green">Correcto</div>
+      <button class="button">Detalles</button>
+    </div>
+
+    <div class="card">
+      <h2>Espacio en disco</h2>
+      <div class="status blue">150 GB libres</div>
+      <button class="button">Liberar</button>
+    </div>
+
+    <div class="card">
+      <h2>Consumo de CPU</h2>
+      <div class="status purple">35% usado</div>
+    </div>
+  </div>
+
+</body>
+</html>
