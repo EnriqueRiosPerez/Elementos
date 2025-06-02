@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Avanzado de Gráficas con Chart.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🧪 Laboratorio Avanzado de Gráficas Dinámicas</h1>
+
+    <div class="main-container">
+        <div id="configuracion-panel">
+            <h2>Configura tu Gráfica</h2>
+
+            <label for="chartType">Tipo de Gráfica:</label>
+            <select id="chartType">
+                <option value="bar">Barras</option>
+                <option value="line">Líneas</option>
+                <option value="pie">Pastel</option>
+                <option value="doughnut">Dona</option>
+                <option value="radar">Radar</option>
+                <option value="polarArea">Área Polar</option>
+                <option value="scatter">Dispersión</option>
+                <option value="bubble">Burbujas</option>
+            </select>
+
+            <label for="chartTitle">Título de la Gráfica:</label>
+            <input type="text" id="chartTitle" placeholder="Ej: Ventas Mensuales">
+
+            <hr class="separator">
+            <h3>Fuente de Datos:</h3>
+            <label for="dataInputMode">Modo de Entrada de Datos:</label>
+            <select id="dataInputMode">
+                <option value="simple">Simple (Etiquetas/Datos CSV)</option>
+                <option value="advanced">Avanzado (JSON + Procesamiento)</option>
+            </select>
+
+            <div id="simpleDataInputs">
+                <label for="chartLabels">Etiquetas (separadas por coma):</label>
+                <input type="text" id="chartLabels" placeholder="Ej: Enero,Febrero,Marzo">
+
+                <label for="chartData">Datos (separados por coma):</label>
+                <input type="text" id="chartData" placeholder="Ej: 10,20,15 o para scatter/bubble: (1,5),(2,8)">
+
+                <label for="datasetLabel">Etiqueta del Conjunto de Datos:</label>
+                <input type="text" id="datasetLabel" value="Mi Dataset">
+
+                <label for="backgroundColor">Color de Fondo (rgba/hex, separado por ';'):</label>
+                <input type="text" id="backgroundColor" placeholder="Ej: rgba(75,192,192,0.2);#FF6384">
+
+                <label for="borderColor">Color de Borde (rgba/hex, separado por ';'):</label>
+                <input type="text" id="borderColor" placeholder="Ej: rgba(75,192,192,1);#FF6384">
+            </div>
+
+            <div id="advancedDataInputs" style="display:none;">
+                <label for="rawDataJson">Datos Crudos (Array JSON):</label>
+                <textarea id="rawDataJson" rows="5" placeholder='[{"Building": "A", "Value": 10, "Status": "OK"}, {"Building": "B", "Value": 20, "Status": "WARN"}]'></textarea>
+
+                <label for="groupByField">Agrupar por (groupBy):</label>
+                <input type="text" id="groupByField" placeholder="Ej: Building">
+
+                <label for="processingField">Campo de Procesamiento Adicional (field - opcional):</label>
+                <input type="text" id="processingField" placeholder="Ej: Status (si tu lógica lo usa)">
+                
+                <label for="advancedColors">Colores Base (hex/rgba, separado por coma):</label>
+                <input type="text" id="advancedColors" placeholder="#55DDE0,#E055DD">
+            </div>
+            
+            <hr class="separator">
+            <h3>Opciones de Visualización:</h3>
+            <div>
+                <input type="checkbox" id="showLegend" checked>
+                <label for="showLegend" class="checkbox-label">Mostrar Leyenda</label>
+            </div>
+            <div>
+                <input type="checkbox" id="showDataLabels" checked>
+                <label for="showDataLabels" class="checkbox-label">Mostrar Etiquetas de Datos (Datalabels)</label>
+            </div>
+             <div>
+                <input type="checkbox" id="beginAtZeroY" checked>
+                <label for="beginAtZeroY" class="checkbox-label">Eje Y Inicia en Cero</label>
+            </div>
+            <div>
+                <input type="checkbox" id="hideXGrid">
+                <label for="hideXGrid" class="checkbox-label">Ocultar Rejilla Eje X</label>
+            </div>
+            <div>
+                <input type="checkbox" id="hideYGrid">
+                <label for="hideYGrid" class="checkbox-label">Ocultar Rejilla Eje Y</label>
+            </div>
+
+            <div class="buttons-container">
+                <button id="saveConfigButton">💾 Guardar Configuración</button>
+            </div>
+        </div>
+
+        <div id="preview-panel">
+            <h2>Vista Previa</h2>
+            <div class="chart-canvas-container">
+                <canvas id="myChartPreview"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <hr class="separator-strong">
+
+    <div id="dashboard-final-panel">
+        <h2>📊 Mi Dashboard Final</h2>
+        <div id="dashboardContainer">
+            </div>
+        <div class="buttons-container dashboard-buttons">
+            <button id="clearDashboardButton">🗑️ Limpiar Todo el Dashboard</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
