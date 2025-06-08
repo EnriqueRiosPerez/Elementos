@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea al inicio para scroll */
+            min-height: 100vh;
+        }
+
+        .edit-event-container {
+            background-color: #2c2f33; 
+            /* Dark theme background for the container */
+            color: #fff; /* Light text for dark background */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #4f545c; /* Lighter border for dark theme */
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .event-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #ffffff; /* White title */
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #aaa; /* Lighter color for close button */
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .event-info, .event-status, .event-details-form, .machinery-breakdown, .event-actions-footer {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #36393f; /* Slightly lighter section background */
+            border-radius: 6px;
+        }
+        
+        .event-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #8e9297; /* Lighter label color */
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .info-item span {
+            font-size: 1.1em;
+            color: #dcddde; /* Value color */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #8e9297;
+            font-size: 0.95em;
+        }
+
+        select, input[type="text"], input[type="datetime-local"] {
+            width: calc(100% - 22px); /* Account for padding */
+            padding: 10px;
+            border: 1px solid #4f545c; /* Border for inputs */
+            border-radius: 4px;
+            background-color: #2c2f33; /* Input background */
+            color: #dcddde; /* Input text color */
+            font-size: 1em;
+            margin-bottom: 10px; /* For spacing in grid */
+        }
+        
+        select {
+             width: 100%;
+        }
+
+        .event-details-form .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .machinery-breakdown h3 {
+            margin-top: 0;
+            color: #ffffff;
+            border-bottom: 1px solid #4f545c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px; /* Adjust as needed */
+            background-color: #2c2f33;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #4f545c;
+        }
+
+        .chart-bar {
+            background-color: #00aaff; /* Original cyan color */
+            flex-grow: 1;
+            margin: 0 2px; /* Spacing between bars */
+            text-align: center;
+            position: relative;
+            transition: height 0.3s ease-out;
+        }
+        .chart-bar:hover {
+            background-color: #0077cc;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px; /* Position label below bar */
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            transform-origin: center;
+            font-size: 0.7em;
+            color: #8e9297;
+            white-space: nowrap;
+        }
+         .bar-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #fff;
+        }
+
+
+        .event-actions-footer {
+            display: flex;
+            justify-content: space-between; /* Puts delete on left, save/cancel on right */
+            align-items: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #4f545c;
+        }
+        
+        .footer-right-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-save {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        .btn-save:hover {
+            background-color: #45a049;
+        }
+
+        .btn-cancel {
+            background-color: #7289da; /* Discord blurple */
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #5f73bc;
+        }
+        
+        .btn-delete {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Dim background */
+        }
+
+        .modal-content {
+            background-color: #36393f; /* Dark modal background */
+            color: #dcddde; /* Light text */
+            margin: 10% auto;
+            padding: 25px;
+            border: 1px solid #2c2f33; /* Slightly darker border */
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #4f545c; /* Lighter separator */
+            margin-bottom: 15px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #fff; /* White title */
+        }
+        .modal-close-btn {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover,
+        .modal-close-btn:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+        .modal-body p {
+            line-height: 1.6;
+        }
+        .modal-body input[type="text"] {
+            width: calc(100% - 22px); /* Full width */
+            margin-top: 10px;
+            background-color: #2c2f33;
+            color: #dcddde;
+            border: 1px solid #4f545c;
+        }
+        .modal-footer {
+            padding-top: 15px;
+            border-top: 1px solid #4f545c;
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .modal-footer .btn-cancel {
+            background-color: #7289da; /* Using same blurple */
+        }
+        .modal-footer .btn-confirm-delete {
+            background-color: #f44336; /* Red */
+        }
+        .modal-footer .btn-confirm-delete:hover {
+            background-color: #da190b;
+        }
+        .warning-text {
+            color: #faa61a; /* Amber/Yellow for warnings */
+            font-weight: bold;
+        }
+        #deleteError {
+            color: #f44336;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: block; /* So it takes space if needed */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="edit-event-container">
+        <div class="event-header">
+            <h1>Edit Event</h1>
+            <button class="close-btn" onclick="window.alert('Close action triggered')">&times;</button>
+        </div>
+
+        <div class="event-info">
+            <div class="event-info-grid">
+                <div class="info-item">
+                    <strong>Event ID:</strong>
+                    <span id="eventID"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Event Type:</strong>
+                    <span id="eventType"></span>
+                </div>
+                <div class="info-item">
+                    <strong># Total Items:</strong>
+                    <span id="totalItems"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-status">
+            <label for="statusSelect">Status:</label>
+            <select id="statusSelect">
+                <option value="New">New</option>
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Closed">Closed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <div class="event-details-form">
+             <div class="details-grid">
+                <div>
+                    <label for="buildingSelect">Building:</label>
+                    <select id="buildingSelect">
+                        <option value="N01">N01</option>
+                        <option value="N02">N02</option>
+                        <option value="S01">S01</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="lineSelect">Line:</label>
+                    <select id="lineSelect">
+                        <option value="LE1">LE1</option>
+                        <option value="LE2">LE2</option>
+                        <option value="LW3">LW3</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="areaSelect">Area:</label>
+                    <select id="areaSelect">
+                        <option value="All line">All line</option>
+                        <option value="Section A">Section A</option>
+                        <option value="Section B">Section B</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sideSelect">Side:</label>
+                    <select id="sideSelect">
+                        <option value="All">All</option>
+                        <option value="Left">Left</option>
+                        <option value="Right">Right</option>
+                    </select>
+                </div>
+                <div style="grid-column: span 2;"> <label for="startDateInput">Start date:</label>
+                    <input type="datetime-local" id="startDateInput">
+                </div>
+            </div>
+        </div>
+
+        <div class="machinery-breakdown">
+            <h3>Affected Machinery Types</h3>
+            <div class="chart-container" id="chartContainer">
+                </div>
+        </div>
+        
+        <div class="event-actions-footer">
+            <button class="btn-delete" id="deleteEventBtn">Delete Event...</button>
+            <div class="footer-right-buttons">
+                <button class="btn-cancel" id="cancelBtn">Cancel</button>
+                <button class="btn-save" id="saveBtn">Save Changes</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Deletion</h2>
+                <span class="modal-close-btn" id="modalCloseBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete Event ID: <strong id="modalEventID"></strong> (<span id="modalEventType"></span>)?</p>
+                <p class="warning-text">⚠️ This action cannot be undone. All related data will be permanently deleted.</p>
+                <label for="deleteConfirmInput">To confirm, type the event ID "<span id="confirmValue"></span>" below:</label>
+                <input type="text" id="deleteConfirmInput" placeholder="Type event ID here">
+                <span id="deleteError"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="modalCancelBtn">Cancel</button>
+                <button class="btn-confirm-delete" id="modalConfirmDeleteBtn">Confirm Deletion</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Initial Data (simulating what might come from a backend) ---
+        const eventData = {
+            id: "11384",
+            type: "Preventive Maintenance",
+            totalItems: 89,
+            status: "New",
+            building: "N02",
+            line: "LE1",
+            area: "All line",
+            side: "All",
+            startDate: "2025-05-28T00:00", // ISO format for datetime-local
+            machinery: {
+                'Board Loader': 2,
+                'Conveyor': 34,
+                'Pick and Place A07': 35,
+                'Selective Solder Pillar House': 2,
+                'FFG': 8,
+                'Reflow Oven Kaimo': 1,
+                'SPI Koh Young': 2,
+                'Screen Printer ASM': 3,
+                'Reflow Oven Heller': 1,
+                'Screen Printer DEK': 1
+            }
+        };
+
+        // --- Populate Initial Data into the Form ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('eventID').textContent = eventData.id;
+            document.getElementById('eventType').textContent = eventData.type;
+            document.getElementById('totalItems').textContent = eventData.totalItems;
+            
+            document.getElementById('statusSelect').value = eventData.status;
+            document.getElementById('buildingSelect').value = eventData.building;
+            document.getElementById('lineSelect').value = eventData.line;
+            document.getElementById('areaSelect').value = eventData.area;
+            document.getElementById('sideSelect').value = eventData.side;
+            document.getElementById('startDateInput').value = eventData.startDate;
+
+            // Populate chart
+            const chartContainer = document.getElementById('chartContainer');
+            const machineryData = eventData.machinery;
+            const maxVal = Math.max(...Object.values(machineryData));
+
+            for (const [name, value] of Object.entries(machineryData)) {
+                const bar = document.createElement('div');
+                bar.classList.add('chart-bar');
+                // Calculate height relative to max value (can be improved for better scaling)
+                bar.style.height = `${(value / maxVal) * 90}%`; // Use 90% of container height for max bar
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.classList.add('bar-value');
+                valueSpan.textContent = value;
+                bar.appendChild(valueSpan);
+
+                const labelSpan = document.createElement('span');
+                labelSpan.classList.add('bar-label');
+                labelSpan.textContent = name;
+                bar.appendChild(labelSpan);
+                
+                chartContainer.appendChild(bar);
+            }
+
+            // Modal elements
+            const deleteModal = document.getElementById('deleteModal');
+            const deleteEventBtn = document.getElementById('deleteEventBtn');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const modalCancelBtn = document.getElementById('modalCancelBtn');
+            const modalConfirmDeleteBtn = document.getElementById('modalConfirmDeleteBtn');
+            const deleteConfirmInput = document.getElementById('deleteConfirmInput');
+            const deleteError = document.getElementById('deleteError');
+
+            deleteEventBtn.onclick = () => {
+                document.getElementById('modalEventID').textContent = eventData.id;
+                document.getElementById('modalEventType').textContent = eventData.type;
+                document.getElementById('confirmValue').textContent = eventData.id;
+                deleteConfirmInput.value = ''; // Clear previous input
+                deleteError.textContent = ''; // Clear previous error
+                deleteModal.style.display = 'block';
+            }
+
+            modalCloseBtn.onclick = ()_Modal();
+            modalCancelBtn.onclick = closeModal;
+            window.onclick = (event) => {
+                if (event.target == deleteModal) {
+                    closeModal();
+                }
+            }
+            
+            function closeModal() {
+                deleteModal.style.display = 'none';
+            }
+
+            modalConfirmDeleteBtn.onclick = () => {
+                if (deleteConfirmInput.value === eventData.id) {
+                    alert(`Event ID: ${eventData.id} (${eventData.type}) would be deleted now.`);
+                    // Add actual deletion logic here (e.g., API call)
+                    closeModal();
+                    // Potentially redirect or update UI further
+                } else {
+                    deleteError.textContent = 'The entered ID does not match. Deletion cancelled.';
+                }
+            }
+
+            // Save and Cancel buttons
+            document.getElementById('saveBtn').onclick = () => {
+                const currentData = {
+                    id: eventData.id,
+                    type: eventData.type,
+                    totalItems: eventData.totalItems,
+                    status: document.getElementById('statusSelect').value,
+                    building: document.getElementById('buildingSelect').value,
+                    line: document.getElementById('lineSelect').value,
+                    area: document.getElementById('areaSelect').value,
+                    side: document.getElementById('sideSelect').value,
+                    startDate: document.getElementById('startDateInput').value,
+                    // Machinery data usually isn't edited directly here but could be re-fetched
+                };
+                console.log("Data to save:", currentData);
+                alert("Changes would be saved! Check console for data.");
+            };
+
+            document.getElementById('cancelBtn').onclick = () => {
+                if (confirm("Are you sure you want to cancel? Any unsaved changes will be lost.")) {
+                    // Re-populate original data or redirect
+                    alert("Changes cancelled. Reverting to original data (simulation).");
+                    // For a real app, you might re-fetch or reset to original eventData
+                     document.getElementById('statusSelect').value = eventData.status;
+                     document.getElementById('buildingSelect').value = eventData.building;
+                     document.getElementById('lineSelect').value = eventData.line;
+                     document.getElementById('areaSelect').value = eventData.area;
+                     document.getElementById('sideSelect').value = eventData.side;
+                     document.getElementById('startDateInput').value = eventData.startDate;
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "system-ui";
+  /*  color: white;*/
+
+}
+
+:root {
+    --nav-width: 18rem;
+    --general-header-height: 72px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+    <div id='calendar' ></div>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+
+    <script>
+
+
+        let data_2 = [
+            {
+                "id": 8692,
+                "title": "ESD",
+                "start": "2024-10-21",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N02",
+                "Line": "L01"
+            },
+            {
+                "id": 10155,
+                "title": "ESD",
+                "start": "2025-02-18",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10253,
+                "title": "ESD",
+                "start": "2025-02-26",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10151,
+                "title": "ESD",
+                "start": "2025-02-28",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10215,
+                "title": "ESD",
+                "start": "2025-02-24",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10461,
+                "title": "ESD",
+                "start": "2025-03-19",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10401,
+                "title": "ESD",
+                "start": "2025-03-12",
+                "color": "#0094C6",
+                "Status": "New",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10551,
+                "title": "ESD",
+                "start": "2025-03-26",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N01",
+                "Line": "L01"
+            },
+            {
+                "id": 10692,
+                "title": "ESD",
+                "start": "2025-04-08",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L08"
+            },
+            {
+                "id": 10154,
+                "title": "ESD",
+                "start": "2025-02-20",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N08",
+                "Line": "L00"
+            },
+            {
+                "id": 10522,
+                "title": "ESD",
+                "start": "2025-03-25",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N01",
+                "Line": "L01"
+            },
+            {
+                "id": 10647,
+                "title": "ESD",
+                "start": "2025-04-02",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L00"
+            },
+            {
+                "id": 10648,
+                "title": "ESD",
+                "start": "2025-04-03",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L05"
+            },
+            {
+                "id": 10652,
+                "title": "ESD",
+                "start": "2025-04-03",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L06"
+            },
+            {
+                "id": 10690,
+                "title": "ESD",
+                "start": "2025-04-08",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L05"
+            },
+            {
+                "id": 10734,
+                "title": "ESD",
+                "start": "2025-04-10",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N05",
+                "Line": "L10"
+            },
+            {
+                "id": 10733,
+                "title": "ESD",
+                "start": "2025-04-10",
+                "color": "#0094C6",
+                "Status": "Open",
+                "Building": "N05",
+                "Line": "L09"
+            },
+            {
+                "id": 10651,
+                "title": "ESD",
+                "start": "2025-04-03",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L06"
+            },
+            {
+                "id": 10693,
+                "title": "ESD",
+                "start": "2025-04-08",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L07"
+            },
+            {
+                "id": 10694,
+                "title": "ESD",
+                "start": "2025-04-08",
+                "color": "#0094C6",
+                "Status": "Close",
+                "Building": "N05",
+                "Line": "L08"
+            }
+        ]
+        var calendarEl = document.getElementById('calendar');
+            console.log(data_2)
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            height: "100%",
+
+            headerToolbar: {
+                left: "dayGridMonth,timeGridWeek,timeGridDay,multiMonthYear",
+                center: "prev,title,next",
+                right: "today",
+            },
+            navLinks: true, // can click day/week names to navigate views
+            selectable: true,
+            selectMirror: true,
+            editable: true,
+            dayMaxEvents: true,
+            events: data_2,
+            eventContent: function (data) {
+                    console.log(data)
+                return {
+                    html: `
+                <div class="tag">
+                    <div> <div class="eaea"><div class="${data.event.extendedProps.Status}"> </div> ${data.event.extendedProps.Status} </div><strong>${data.event.title}</strong> </div>
+                    <div class="tages"> <span> <i class="fa-solid fa-industry"></i>${data.event.extendedProps.Building}</span> <span> <i class="fa-solid fa-scribble"></i></i> ${data.event.extendedProps.Line} </span> </div>
+                   
+                   
+                    
+                </div>
+                `
+                }
+            }
+
+
+        });
+        calendar.render();
+
+
+
+    </script>
+</body>
+
+</html>

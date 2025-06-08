@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmación personalizada</title>
+  <style>
+    dialog {
+      border: none;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .dialog-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      background-color: crimson;
+      color: white;
+    }
+
+    .cancel-btn {
+      background-color: #ccc;
+    }
+
+    /* Overlay de confirmación */
+    .confirm-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .confirm-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="openMainDialog">Abrir evento</button>
+
+  <dialog id="mainDialog">
+    <h2>Detalles del Evento</h2>
+    <p>¿Deseas eliminar este evento?</p>
+
+    <div class="dialog-buttons">
+      <button class="delete-btn" id="deleteEventBtn">Eliminar</button>
+      <button class="cancel-btn" onclick="mainDialog.close()">Cancelar</button>
+    </div>
+
+    <!-- Confirmación personalizada como overlay -->
+    <div class="confirm-overlay hidden" id="confirmOverlay">
+      <div class="confirm-box">
+        <p>¿Estás seguro de que deseas eliminar este evento?</p>
+        <div class="dialog-buttons">
+          <button class="delete-btn" id="confirmDeleteBtn">Sí, eliminar</button>
+          <button class="cancel-btn" id="cancelConfirmBtn">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const mainDialog = document.getElementById('mainDialog');
+    const openMainDialog = document.getElementById('openMainDialog');
+    const deleteEventBtn = document.getElementById('deleteEventBtn');
+    const confirmOverlay = document.getElementById('confirmOverlay');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
+
+    openMainDialog.addEventListener('click', () => {
+      mainDialog.showModal();
+    });
+
+    deleteEventBtn.addEventListener('click', () => {
+      confirmOverlay.classList.remove('hidden');
+    });
+
+    cancelConfirmBtn.addEventListener('click', () => {
+      confirmOverlay.classList.add('hidden');
+    });
+
+    confirmDeleteBtn.addEventListener('click', () => {
+      confirmOverlay.classList.add('hidden');
+      mainDialog.close();
+      alert('Evento eliminado exitosamente');
+      // Aquí podrías ejecutar la lógica real de eliminación
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+</head>
+<body>
+    
+<button type="button" id="Suceces">success</button>
+<button type="button" id="Erroor">error</button>
+<button type="button" id="INOFR">info</button>
+
+ <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script>
+    let notyf = new Notyf();
+    Suceces.addEventListener('click', function() {
+        notyf.success('This is a success message!');
+    });
+    Erroor.addEventListener('click', function() {
+        // notyf.error('This is an error message!');
+
+        notyf.error({
+  message: 'this is an error message!',
+  duration: 1000,
+  position: {
+    x: 'center',
+    y: 'top'
+  },
+  dismissible: true,
+//   ripple: false
+//   icon: true
+})
+    });
+    INOFR.addEventListener('click', function() {
+        notyf.info('This is an info message!');
+    });
+    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Mantenimiento Preventivo</title>
+    <!-- Incluyendo Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluyendo la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- INCLUYENDO CHART.JS DESDE CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+        }
+        /* Custom scrollbar for dark theme */
+        /* For Webkit browsers (Chrome, Safari, etc.) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #555;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body class="bg-[#191919] flex items-center justify-center min-h-screen p-4">
+
+    <!-- Contenedor Principal con max-height y overflow -->
+    <div id="event-details" class="bg-[#2F2F2F] text-gray-300 rounded-xl shadow-2xl p-6 sm:p-8 w-full max-w-6xl border border-gray-700/50 flex flex-col max-h-[95vh] overflow-y-auto">
+        
+        <!-- Encabezado -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-6 border-b border-gray-700/50">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-100">Mantenimiento Preventivo #11499</h2>
+                <p class="text-sm text-gray-400">Detalles y configuración del evento de mantenimiento.</p>
+            </div>
+            <div class="flex items-center mt-3 sm:mt-0">
+                 <!-- Botón de cerrar ahora es un icono 'X' -->
+                 <button class="text-gray-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenido Principal de Dos Columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-grow">
+            
+            <!-- Columna Izquierda: Detalles Generales -->
+            <div class="lg:col-span-1 flex flex-col gap-6">
+                <!-- Sección de Detalles del Evento -->
+                <div class="bg-gray-700/20 p-5 rounded-lg border border-gray-700/40">
+                    <div class="flex justify-between items-center mb-4">
+                         <h3 class="text-lg font-semibold text-gray-100">Detalles del Evento</h3>
+                         <!-- Tag de estado movido aquí -->
+                         <span id="main-status-badge" class="bg-yellow-500/20 text-yellow-300 text-xs font-medium px-2.5 py-0.5 rounded-full">En Progreso</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-sm font-medium text-gray-400">Progreso General</label>
+                                <span id="progress-percentage" class="text-sm font-semibold text-gray-300">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-700/60 rounded-full h-2.5">
+                                <div id="progress-bar" class="bg-green-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Prioridad</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option>Media</option>
+                                <option>Alta</option>
+                                <option>Baja</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Técnico Asignado</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option>Equipo A</option>
+                                <option selected>Juan Pérez</option>
+                                <option>Sin Asignar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Fecha de Inicio</label>
+                            <input type="datetime-local" value="2025-05-06T09:00" class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-gray-400">Duración Estimada (Horas)</label>
+                            <input type="number" value="8" class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Alcance -->
+                 <div class="bg-gray-700/20 p-5 rounded-lg border border-gray-700/40">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-4">Alcance</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                         <div>
+                            <label class="block text-sm font-medium text-gray-400">Building</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option selected>N04</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Line</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option selected>L11</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Area</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option selected>All line</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400">Side</label>
+                            <select class="w-full mt-1 bg-gray-700/30 border border-gray-600/50 rounded-md p-2 text-gray-200">
+                                <option selected>All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Gráfico -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                 <!-- GRÁFICO DE EQUIPOS CON CHART.JS -->
+                 <div class="bg-gray-700/20 p-5 rounded-lg border border-gray-700/40 h-full">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-4">Resumen de Equipos</h3>
+                    <div class="relative h-[calc(100%-2rem)]" style="max-height: 25rem;">
+                        <canvas id="equipmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FOOTER CON ACCIONES -->
+        <div class="mt-8 pt-6 border-t border-gray-700/50 flex justify-between items-center">
+            <button class="text-red-500 hover:bg-red-500/10 font-medium py-2 px-4 rounded-md transition-colors">
+                Eliminar Evento
+            </button>
+            <button class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md transition-colors">
+                Guardar Cambios
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Datos de los equipos a mantener
+            const equipmentData = [
+                { name: 'Pick and Place-NXT', count: 23, status: 'Completado' },
+                { name: 'Conveyors', count: 30, status: 'Completado' },
+                { name: 'FIFO', count: 23, status: 'En Progreso' },
+                { name: 'Board Loader SPL', count: 11, status: 'Pendiente' },
+                { name: 'Screen Printer-DEK', count: 2, status: 'Pendiente' },
+                { name: 'Reflow Oven-Nede', count: 1, status: 'Pendiente' },
+                { name: 'Reflow Oven-Rehm', count: 2, status: 'Pendiente' },
+                { name: 'Selective Solder', count: 1, status: 'Pendiente' },
+                { name: 'Robot-Mirae', count: 1, status: 'Pendiente' },
+            ];
+
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+            
+            let totalItems = 0;
+            let completedItems = 0;
+
+            const statusStyles = {
+                'Pendiente': { text: 'Pendiente', classes: 'bg-gray-600 text-gray-300' },
+                'En Progreso': { text: 'En Progreso', classes: 'bg-yellow-500/20 text-yellow-300' },
+                'Completado': { text: 'Completado', classes: 'bg-green-500/20 text-green-300' }
+            };
+
+            equipmentData.forEach(item => {
+                totalItems += item.count;
+                if (item.status === 'Completado') {
+                    completedItems += item.count;
+                }
+            });
+
+            // Actualizar barra de progreso
+            const progress = totalItems > 0 ? (completedItems / totalItems) * 100 : 0;
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${progress.toFixed(0)}%`;
+
+            // Actualizar la insignia de estado principal
+            const mainStatusBadge = document.getElementById('main-status-badge');
+            if (progress === 100) {
+                 mainStatusBadge.className = statusStyles['Completado'].classes + ' text-xs font-medium px-2.5 py-0.5 rounded-full';
+                 mainStatusBadge.textContent = statusStyles['Completado'].text;
+            } else if (progress > 0) {
+                 mainStatusBadge.className = statusStyles['En Progreso'].classes + ' text-xs font-medium px-2.5 py-0.5 rounded-full';
+                 mainStatusBadge.textContent = statusStyles['En Progreso'].text;
+            } else {
+                 mainStatusBadge.className = 'bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full';
+                 mainStatusBadge.textContent = 'Programado';
+            }
+
+
+            // --- LÓGICA DE CHART.JS ---
+            const ctx = document.getElementById('equipmentChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: equipmentData.map(item => item.name),
+                    datasets: [{
+                        label: 'Cantidad de Equipos',
+                        data: equipmentData.map(item => item.count),
+                        backgroundColor: 'rgba(107, 114, 128, 0.5)',
+                        borderColor: 'rgba(107, 114, 128, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgb(209, 213, 219)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgb(156, 163, 175)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1F2937',
+                            titleColor: '#F9FAFB',
+                            bodyColor: '#D1D5DB'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

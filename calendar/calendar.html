@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Programación</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FullCalendar JS Library -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        /* ------------------------- */
+        /* --- General Styles --- */
+        /* ------------------------- */
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --primary-text-color: #E0E0E0;
+            --secondary-text-color: #A0A0A0;
+            --border-color: #333333;
+            --accent-color: #3b82f6; /* Blue accent */
+            --hover-color: #2a2a2a;
+            --active-surface: #444444;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+
+        /* ------------------------- */
+        /* --- Sidebar --- */
+        /* ------------------------- */
+        .sidebar {
+            width: 240px;
+            background-color: var(--surface-color);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            font-size: 1.8em;
+            font-weight: 700;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 40px;
+        }
+
+        .nav-item {
+            color: var(--secondary-text-color);
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background-color: var(--hover-color);
+            color: var(--primary-text-color);
+        }
+
+        .nav-item.active {
+            background-color: var(--accent-color);
+            color: #FFF;
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+        }
+
+        /* ------------------------- */
+        /* --- Main Content --- */
+        /* ------------------------- */
+        .main-content {
+            flex-grow: 1;
+            padding: 24px 40px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .main-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #searchInput {
+            background-color: var(--hover-color);
+            color: var(--primary-text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 1em;
+            width: 300px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+
+        .view-switcher {
+            display: flex;
+            background-color: var(--hover-color);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-switcher button {
+            background-color: transparent;
+            border: none;
+            color: var(--secondary-text-color);
+            padding: 8px 16px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .view-switcher button.active {
+            background-color: var(--active-surface);
+            color: var(--primary-text-color);
+            font-weight: 600;
+        }
+        
+        .content-wrapper {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        /* ------------------------- */
+        /* --- Table Styles --- */
+        /* ------------------------- */
+        #scheduleTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #scheduleTable th, #scheduleTable td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #scheduleTable thead th {
+            color: var(--secondary-text-color);
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        #scheduleTable tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        #scheduleTable tbody tr:hover {
+            background-color: var(--hover-color);
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.8em;
+            display: inline-block;
+        }
+
+        .status-close {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+        
+        .status-open {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        /* ------------------------- */
+        /* --- FullCalendar Dark Theme --- */
+        /* ------------------------- */
+        :root {
+          --fc-border-color: var(--border-color);
+          --fc-daygrid-cell-misc-color: var(--border-color);
+          --fc-theme-standard-border-color: var(--border-color);
+          --fc-list-event-hover-bg-color: var(--hover-color);
+        }
+
+        .fc {
+            background-color: transparent !important;
+            border: none !important;
+            color: var(--primary-text-color);
+            height: 100%; /* Make it fill the container */
+        }
+        
+        #calendar-container {
+             height: 100%;
+        }
+
+        .fc .fc-toolbar-title {
+            color: var(--primary-text-color);
+            font-size: 1.5em;
+        }
+
+        .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number {
+            color: var(--secondary-text-color);
+            text-decoration: none;
+        }
+
+        .fc .fc-button {
+            background-color: var(--hover-color);
+            border-color: var(--border-color);
+            color: var(--primary-text-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .fc .fc-button:hover {
+            background-color: #3a3a3a;
+        }
+        
+        .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .fc-event {
+            border: 1px solid #ffffff20 !important;
+            padding: 5px 8px !important;
+            font-weight: 500 !important;
+            border-radius: 6px !important;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .fc-event:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .fc-event-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .fc-event-title {
+            font-weight: 600;
+        }
+
+        .fc-event-body {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        /* Colores para tipos de mantenimiento */
+        .fc-event[data-type="Preventive"] {
+          background-color: rgba(59, 130, 246, 0.4) !important; /* Azul */
+          border-left: 3px solid var(--accent-color) !important;
+        }
+        .fc-event[data-type="Corrective"] {
+          background-color: rgba(239, 68, 68, 0.3) !important; /* Rojo */
+          border-left: 3px solid #ef4444 !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Barra Lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-header">M</div>
+            <nav>
+                <a href="#" class="nav-item">Home</a>
+                <a href="#" class="nav-item active">Maintenance</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item">Settings</a>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Schedule</h1>
+                <div class="controls">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar por Nomenclatura, Línea...">
+                    <div class="view-switcher">
+                        <button id="showCalendarBtn" class="active">Calendario</button>
+                        <button id="showTableBtn">Tabla</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedor para el Calendario -->
+            <div id="calendar-container" class="content-wrapper">
+                <div id="calendar"></div>
+            </div>
+
+            <!-- Contenedor para la Tabla -->
+            <div id="table-container" class="content-wrapper hidden">
+                <table id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th>Nomenclatura</th>
+                            <th>Línea</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas se generan con JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Lógica de la Aplicación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. ELEMENTOS DEL DOM ---
+            const calendarEl = document.getElementById('calendar');
+            const searchInput = document.getElementById('searchInput');
+            const showCalendarBtn = document.getElementById('showCalendarBtn');
+            const showTableBtn = document.getElementById('showTableBtn');
+            const calendarContainer = document.getElementById('calendar-container');
+            const tableContainer = document.getElementById('table-container');
+            const tableBody = document.querySelector("#scheduleTable tbody");
+
+            // --- 2. DATOS DE EJEMPLO ---
+            // En una aplicación real, estos datos vendrían de una API.
+            // 'extendedProps' es ideal para guardar metadatos.
+            const initialEvents = [
+                { title: 'N03 | L130', date: '2025-06-01', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N03 | L07', date: '2025-06-01', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N03 | L08', date: '2025-06-01', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N03 | L09', date: '2025-06-01', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N05 | L11', date: '2025-06-02', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N08 | L17', date: '2025-06-02', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N06 | L12', date: '2025-06-02', extendedProps: { line: 'Backend', status: 'Open', type: 'Corrective' } },
+                { title: 'N06 | WA4', date: '2025-06-03', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N08 | L12', date: '2025-06-03', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N05 | L10', date: '2025-06-04', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N06 | L12', date: '2025-06-04', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N08 | L12', date: '2025-06-05', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+                { title: 'N08 | L17', date: '2025-06-05', extendedProps: { line: 'All line', status: 'Close', type: 'Preventive' } },
+            ];
+
+            // --- 3. INICIALIZACIÓN DE FULLCALENDAR ---
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,timeGridDay'
+                },
+                events: initialEvents,
+                editable: true,
+                droppable: true,
+                height: '100%',
+                locale: 'es', // Set language to Spanish
+
+                // Custom render function for events to add more detail
+                eventContent: function(arg) {
+                    let props = arg.event.extendedProps;
+                    let html = `
+                        <div class="fc-event-main">
+                            <div class="fc-event-title">${arg.event.title}</div>
+                            <div class="fc-event-body">${props.status} | ${props.line}</div>
+                        </div>`;
+                    return { html: html };
+                },
+                
+                // Add a data-attribute for styling based on event type
+                eventDidMount: function(info) {
+                  if (info.event.extendedProps.type) {
+                    info.el.setAttribute('data-type', info.event.extendedProps.type);
+                  }
+                }
+            });
+
+            calendar.render();
+
+            // --- 4. FUNCIONES DE LA APLICACIÓN ---
+
+            /**
+             * Filters events based on a search term and updates both calendar and table.
+             */
+            function filterAndRender() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+
+                const filteredEvents = initialEvents.filter(event => {
+                    const title = event.title.toLowerCase();
+                    const line = event.extendedProps.line.toLowerCase();
+                    const type = event.extendedProps.type.toLowerCase();
+                    return title.includes(searchTerm) || line.includes(searchTerm) || type.includes(searchTerm);
+                });
+
+                // Update FullCalendar with filtered events
+                calendar.getEventSources().forEach(source => source.remove());
+                calendar.addEventSource(filteredEvents);
+
+                // Update the table with filtered events
+                renderTable(filteredEvents);
+            }
+
+            /**
+             * Renders the table rows with the provided events.
+             * @param {Array} events - The array of event objects to display.
+             */
+            function renderTable(events) {
+                tableBody.innerHTML = '';
+
+                if (events.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No se encontraron eventos.</td></tr>';
+                    return;
+                }
+
+                events.forEach(event => {
+                    const props = event.extendedProps;
+                    const row = document.createElement('tr');
+                    
+                    // Create a status badge with appropriate class
+                    const statusClass = props.status.toLowerCase() === 'close' ? 'status-close' : 'status-open';
+
+                    row.innerHTML = `
+                        <td>${event.title}</td>
+                        <td>${props.line}</td>
+                        <td>${event.date}</td>
+                        <td><span class="status-badge ${statusClass}">${props.status}</span></td>
+                        <td>${props.type}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // --- 5. EVENT LISTENERS ---
+
+            // Filter events on search input
+            searchInput.addEventListener('input', filterAndRender);
+
+            // Switch to Calendar View
+            showCalendarBtn.addEventListener('click', () => {
+                tableContainer.classList.add('hidden');
+                calendarContainer.classList.remove('hidden');
+                showCalendarBtn.classList.add('active');
+                showTableBtn.classList.remove('active');
+                calendar.updateSize(); // Important: Recalculates calendar size
+            });
+
+            // Switch to Table View
+            showTableBtn.addEventListener('click', () => {
+                calendarContainer.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+                showTableBtn.classList.add('active');
+                showCalendarBtn.classList.remove('active');
+            });
+
+            // --- 6. RENDER INICIAL ---
+            renderTable(initialEvents);
+        });
+    </script>
+</body>
+</html>

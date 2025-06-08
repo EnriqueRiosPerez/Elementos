@@ -1,8 +1,13 @@
 let ul_drop = document.querySelector(".Aside_Nav")
 let elements = Array.from(ul_drop.querySelectorAll("li.F"))
+let sub_menus = Array.from(ul_drop.querySelectorAll("li.SD"))
+
 let boton_aside = document.getElementById("boton_aside")
 console.log(ul_drop)
+console.log("Menus")
 console.log(elements)
+console.log("Submenus")
+console.log(sub_menus)
 let actual 
 // elements.forEach(element =>{
 //     console.log(element)
@@ -39,12 +44,20 @@ let actual
 elements.forEach(element => {
     element.addEventListener("click", (e) => {
         // Solo activar si el clic fue exactamente en el <a> (o dentro de él)
+        console.log("eaeae")
+        console.log(Array.from(element.querySelectorAll("li.SD")))
         const link = element.querySelector("a")
+        console.log(link)
         if (link && link.contains(e.target)) {
             // Cerrar los demás
             elements.forEach(el => {
                 if (el !== element) {
+                    sub_menus.forEach(submenu=>{
+                        submenu.classList.remove("open")
+                    })
                     el.classList.remove("open")
+                    console.log("aqui borramos open de todos")
+                    
                 }
             })
 
@@ -53,3 +66,20 @@ elements.forEach(element => {
         }
     })
 })
+
+
+sub_menus.forEach(element=>{
+    element.addEventListener("click", (e)=>{
+        let link = element.querySelector("a")
+        if(link && link.contains(e.target)){
+            sub_menus.forEach(el=>{
+                if(el !== element){
+                    el.classList.remove("open")
+                }
+            })
+            element.classList.toggle("open")
+        }
+    })
+})
+
+

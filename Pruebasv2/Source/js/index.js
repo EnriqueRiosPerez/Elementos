@@ -19,7 +19,7 @@ Boton.addEventListener("click", async () => {
 })
 Principal_Nav.addEventListener("click", async (e) => {
     let elemento = e.target
-    console.log(elemento)
+    // console.log(elemento)
 
     if (elemento.classList.contains("Show_Nav")) {
         console.log("Si ");

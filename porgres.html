@@ -1,0 +1,398 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Barra de Progreso</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #progressBar {
+            width: 50%;
+            height: 30px;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        #progressBar div {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="progressBar">
+        <div></div>
+    </div>
+    <script>
+        function updateProgressBar(percentage) {
+            document.querySelector('#progressBar div').style.width = percentage + '%';
+        }
+
+        // Ejemplo de uso
+        const totalActivities = 100;
+        const closedActivities = 75;
+        const progressPercentage = (closedActivities / totalActivities) * 100;
+        updateProgressBar(progressPercentage);
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     
+  <meta charset="UTF-8">
+  <style>
+    #progressBar {
+      width: 100%;
+      height: 30px;
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      overflow: hidden;
+      interpolate-size: allow-keywords;
+    }
+
+    #progressBar div {
+      height: 100%;
+      background: linear-gradient(135deg, #77ED8B 0%, #22C55E 100%);
+      width: 0;
+      transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &>span {
+        /* color:orange; */
+        padding: 1rem;
+      }
+    }
+    progress{
+  text-align:center;
+   height: 20px;
+}
+
+progress:before {
+  content: attr(value)'%';
+  
+}
+  </style>
+      <title>Gráfica de Progreso</title>
+  <!--     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+</head>
+
+<body>
+  <h3>Progress</h3>
+  <input type="text" id="inputText" placeholder="Escribe algo...">
+  <div id="progressBar">
+    <div><span id="prc"> eaeaeae</span></div>
+  </div>
+  <progress class="unique" ></progress>
+
+  <button type="button" id="randow" action="Delete" onclick="Actions(this)">subir</button>
+
+  <script>
+    let botones = document.querySelector('[action="Delete"]')
+    console.log(botones)
+    async function updateProgressBar(percentage) {
+      document.querySelector('#progressBar div').style.width = percentage + '%';
+      let ff = document.getElementById("prc")
+      ff.classList.toggle
+      ff.innerText = percentage + '%'
+      let data = {
+          "mail_data": {
+            "to": "enrique.rios@flex.com",
+            "from": "enrique.rios@flex.com",
+            "Subject": "Ea machin"
+          },
+          "body": "ICA8ZGl2IGlkPSJwcm9ncmVzc0JhciI+CiAgICA8ZGl2PjxzcGFuIGlkPSJwcmMiPiBlYWVhZWFlPC9zcGFuPjwvZGl2PgogIDwvZGl2Pg==",
+          "app": "test_email"
+        }
+
+      let res = await fetch("http://gdjnt280.americas.ad.flextronics.com:106/mail/v1/v1_mail.ashx", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      let jsonjs = res.json()
+      console.log(jsonjs)
+
+    }
+
+    // let randow = document.getElementById("randow")
+    // randow.addEventListener("click", async (e) => {
+    //   console.log(e.target)
+    //   let ripo = Math.floor(Math.random() * 100)
+    //   const exampleAttr = e.target.getAttribute("id");
+    //   console.log(exampleAttr)
+    //   updateProgressBar(ripo)
+    // })
+
+    async function Actions(e) {
+      const exampleAttr = e.getAttribute("action");
+      console.log(exampleAttr)
+      let ripo = Math.floor(Math.random() * 100)
+
+      console.log(exampleAttr)
+      updateProgressBar(ripo)
+      console.log(inputText.value)
+      if ("1" === "1" && "1"=== inputText.value) {
+        console.log("hay")
+        
+      }
+    }
+
+    // Ejemplo de uso
+    // const totalActivities = 100;
+    // const closedActivities = 85;
+    // const progressPercentage = (closedActivities / totalActivities) * 100;
+    // updateProgressBar(progressPercentage);
+  </script>
+  <!-- <canvas id="progressChart" width="200" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Datos de ejemplo
+  const tasks = [
+    { status: "new" },
+    { status: "open" },
+    { status: "close" },
+    { status: "close" }
+  ];
+
+  const total = tasks.length;
+  const closed = tasks.filter(t => t.status === "close").length;
+  const progress = (closed / total) * 100;
+
+  // Plugin para mostrar texto centrado
+  const centerText = {
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { width } = chart;
+      const { height } = chart;
+      const { ctx } = chart;
+      ctx.restore();
+      const fontSize = (height / 12).toFixed(2);
+      ctx.font = `${fontSize}px sans-serif`;
+      ctx.textBaseline = 'middle';
+
+      const text = `Progress ${progress.toFixed(0)}%`;
+      const textX = Math.round((width - ctx.measureText(text).width) / 2);
+      const textY = height / 2;
+
+      ctx.fillStyle = '#333';
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
+  };
+
+  // Crear el gráfico
+  new Chart(document.getElementById("progressChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Cerradas", "Restantes"],
+      datasets: [{
+        data: [closed, total - closed],
+        backgroundColor: ["#4caf50", "#e0e0e0"],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      cutout: "70%",
+      plugins: {
+        tooltip: { enabled: true },
+        legend: { display: false },
+      }
+    },
+    plugins: [centerText]
+  });
+</script> -->
+
+  <!-- 
+<div style="width: 300px; margin: 40px auto; position: relative;">
+  <canvas id="progressChart"></canvas>
+  <div id="tooltipCard" style="display:none; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); padding: 8px 12px; font-size: 14px; pointer-events: none;">
+    <strong>Progreso</strong>: <span id="tooltipValue">0%</span>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const tasks = [
+    { status: "new" },
+    { status: "open" },
+    { status: "close" },
+    { status: "close" }
+  ];
+
+  const total = tasks.length;
+  const closed = tasks.filter(t => t.status === "close").length;
+  const progress = (closed / total) * 100;
+
+  // Plugin para mostrar texto en el centro
+  const centerText = {
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { width, height, ctx } = chart;
+      ctx.save();
+      const fontSize = (height / 6).toFixed(2);
+      ctx.font = `${fontSize}px sans-serif`;
+      ctx.textBaseline = 'middle';
+
+      const text = `${progress.toFixed(0)}%`;
+      const textX = Math.round((width - ctx.measureText(text).width) / 2);
+      const textY = height / 1.1; // Ajuste vertical para half doughnut
+
+      ctx.fillStyle = '#333';
+      ctx.fillText(text, textX, textY);
+      ctx.restore();
+    }
+  };
+
+  const ctx = document.getElementById("progressChart").getContext("2d");
+
+  const chart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Cerradas", "Restantes"],
+      datasets: [{
+        data: [closed, total - closed],
+        backgroundColor: ["#4caf50", "#e0e0e0"],
+        borderWidth: 1,
+        hoverOffset: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "70%",
+      rotation: -90,              // start at top
+      circumference: 180,         // half doughnut
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,         // desactiva tooltip nativo
+          external: function(context) {
+            const tooltipEl = document.getElementById('tooltipCard');
+            const valueSpan = document.getElementById('tooltipValue');
+
+            const tooltip = context.tooltip;
+            if (!tooltip.opacity) {
+              tooltipEl.style.display = 'none';
+              return;
+            }
+
+            const dataIndex = tooltip.dataPoints?.[0]?.dataIndex;
+            if (dataIndex !== undefined) {
+              const label = tooltip.dataPoints[0].label;
+              const value = tooltip.dataPoints[0].formattedValue;
+              valueSpan.textContent = `${label}: ${value}`;
+              tooltipEl.style.display = 'block';
+            }
+
+            const chartRect = chart.canvas.getBoundingClientRect();
+            tooltipEl.style.left = tooltip.caretX + 'px';
+            tooltipEl.style.top = chartRect.top + tooltip.caretY - 20 + 'px';
+          }
+        }
+      }
+    },
+    plugins: [centerText]
+  });
+</script> -->
+
+
+
+
+  <!-- <canvas id="progressChart" width="300" height="150"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const tasks = [
+    { status: "new" },
+    { status: "open" },
+    { status: "close" },
+    { status: "close" }
+  ];
+
+  const total = tasks.length;
+  const closed = tasks.filter(t => t.status === "close").length;
+  const progress = (closed / total) * 100;
+
+  // 🎯 Valor objetivo (target pointer)
+  const target = 75; // % de meta
+
+  // Plugin para texto y línea del target pointer
+  const customPointerPlugin = {
+    id: 'customPointer',
+    afterDraw(chart) {
+      const { width, height, ctx } = chart;
+      const centerX = chart.chartArea.left + chart.chartArea.width / 2;
+      const centerY = chart.chartArea.top + chart.chartArea.height; // parte inferior del half doughnut
+      const radius = chart._metasets[0].data[0].outerRadius;
+
+      // --- Texto en el centro ---
+      ctx.save();
+      ctx.font = "20px sans-serif";
+      ctx.fillStyle = "#333";
+      ctx.textAlign = "center";
+      ctx.fillText(`${progress.toFixed(0)}%`, centerX, centerY - radius / 2);
+      ctx.restore();
+
+      // --- Target Pointer ---
+      const angleDeg = (target / 100) * 180 - 90; // de -90 a +90
+      const angleRad = angleDeg * (Math.PI / 180);
+      const lineLength = radius + 10;
+
+      const endX = centerX + lineLength * Math.cos(angleRad);
+      const endY = centerY + lineLength * Math.sin(angleRad);
+
+      ctx.save();
+      ctx.strokeStyle = "#FF5722";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+
+      // Dibuja un círculo al final del puntero
+      ctx.beginPath();
+      ctx.arc(endX, endY, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = "#FF5722";
+      ctx.fill();
+      ctx.restore();
+    }
+  };
+
+  new Chart(document.getElementById("progressChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Cerradas", "Restantes"],
+      datasets: [{
+        data: [closed, total - closed],
+        backgroundColor: ["#4caf50", "#e0e0e0"],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      cutout: "70%",
+      rotation: -90,
+      circumference: 180,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      }
+    },
+    plugins: [customPointerPlugin]
+  });
+</script> -->
+
+</body>
+
+</html>

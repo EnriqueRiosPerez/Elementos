@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Eventos (Estilo Notion)</title>
+    <!-- Incluyendo Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluyendo la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Aplicando la fuente Inter como predeterminada */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para el icono del calendario en modo oscuro */
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(0.8); /* Ajusta el color del icono para que sea visible en fondos oscuros */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-[#191919] flex items-center justify-center min-h-screen">
+
+    <!-- Contenedor del Modal con estilo Notion -->
+    <div id="modal" class="bg-[#2F2F2F] text-gray-300 rounded-xl shadow-2xl p-6 sm:p-8 w-full max-w-4xl border border-gray-700/50 m-4">
+        
+        <!-- Encabezado del Modal -->
+        <div class="flex justify-between items-center pb-4 mb-6 border-b border-gray-700/50">
+            <h2 class="text-2xl font-bold text-gray-100">Editar Evento</h2>
+            <button id="closeModalBtn" class="text-gray-500 hover:text-gray-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Sección de Estadísticas y Progreso -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Tarjeta de Estadística: Total Items -->
+            <div class="bg-gray-700/30 p-4 rounded-lg flex items-center">
+                <div class="bg-gray-600/40 text-gray-400 rounded-lg p-3 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-400 font-medium"># Total Items</p>
+                    <p class="text-2xl font-bold text-gray-100">73</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Estadística: Mantenimiento -->
+            <div class="bg-gray-700/30 p-4 rounded-lg flex items-center">
+                 <div class="bg-gray-600/40 text-gray-400 rounded-lg p-3 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-400 font-medium">Mantenimiento</p>
+                    <p class="text-2xl font-bold text-gray-100">11499</p>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso -->
+            <div class="bg-gray-700/30 p-4 rounded-lg md:col-span-3">
+                <div class="flex justify-between items-center mb-1">
+                    <p class="text-sm text-gray-400 font-medium">Progreso del Evento</p>
+                    <p class="text-sm font-semibold text-green-500">100.00 %</p>
+                </div>
+                <div class="w-full bg-gray-700/60 rounded-full h-2.5">
+                    <div class="bg-green-600 h-2.5 rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección de Formulario -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Campo: Building -->
+            <div>
+                <label for="building" class="block mb-2 text-sm font-medium text-gray-400">Building</label>
+                <select id="building" class="w-full bg-gray-700/30 border border-gray-600/50 rounded-md p-2.5 text-gray-200 focus:ring-gray-500 focus:border-gray-500">
+                    <option selected>N04</option>
+                    <option>N05</option>
+                    <option>N06</option>
+                </select>
+            </div>
+            <!-- Campo: Line -->
+            <div>
+                <label for="line" class="block mb-2 text-sm font-medium text-gray-400">Line</label>
+                <select id="line" class="w-full bg-gray-700/30 border border-gray-600/50 rounded-md p-2.5 text-gray-200 focus:ring-gray-500 focus:border-gray-500">
+                    <option selected>L11</option>
+                    <option>L12</option>
+                    <option>L13</option>
+                </select>
+            </div>
+            <!-- Campo: Area -->
+            <div>
+                <label for="area" class="block mb-2 text-sm font-medium text-gray-400">Area</label>
+                <select id="area" class="w-full bg-gray-700/30 border border-gray-600/50 rounded-md p-2.5 text-gray-200 focus:ring-gray-500 focus:border-gray-500">
+                    <option selected>All line</option>
+                    <option>Sección A</option>
+                    <option>Sección B</option>
+                </select>
+            </div>
+            <!-- Campo: Side -->
+             <div>
+                <label for="side" class="block mb-2 text-sm font-medium text-gray-400">Side</label>
+                <select id="side" class="w-full bg-gray-700/30 border border-gray-600/50 rounded-md p-2.5 text-gray-200 focus:ring-gray-500 focus:border-gray-500">
+                    <option selected>All</option>
+                    <option>Lado A</option>
+                    <option>Lado B</option>
+                </select>
+            </div>
+            <!-- Campo: Start Date -->
+            <div class="sm:col-span-2">
+                <label for="start-date" class="block mb-2 text-sm font-medium text-gray-400">Start date</label>
+                <input type="datetime-local" id="start-date" value="2025-05-06T00:00" class="w-full bg-gray-700/30 border border-gray-600/50 rounded-md p-2.5 text-gray-200 focus:ring-gray-500 focus:border-gray-500">
+            </div>
+        </div>
+
+        <!-- Sección del Gráfico -->
+        <div class="bg-transparent p-4 sm:p-6 rounded-lg border border-gray-700/50">
+            <h3 class="text-lg font-semibold mb-4 text-gray-200">By Checklist</h3>
+            <div id="chart" class="flex items-end h-64 gap-2 sm:gap-4 w-full overflow-x-auto pb-4">
+                <!-- Las barras del gráfico se generarán aquí con JS -->
+            </div>
+        </div>
+
+        <!-- Pie del Modal (Acciones) -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-6 border-t border-gray-700/50">
+            <button class="w-full sm:w-auto text-red-500 hover:bg-red-500/10 font-medium py-2 px-4 rounded-md transition-colors mb-2 sm:mb-0">
+                Delete event
+            </button>
+            <div class="flex w-full sm:w-auto">
+                <button class="w-1/2 sm:w-auto text-gray-300 hover:bg-gray-700/50 font-medium py-2 px-6 rounded-md transition-colors mr-2">
+                    Cancel
+                </button>
+                <button class="w-1/2 sm:w-auto bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition-colors">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Datos para el gráfico de barras
+            const chartData = [
+                { label: 'Pick and Place-NXT', value: 23 },
+                { label: 'Conveyors', value: 30 },
+                { label: 'FIFO', value: 23 },
+                { label: 'Board Loader SPL', value: 11 },
+                { label: 'Screen Printer-DEK', value: 2 },
+                { label: 'Reflow Oven-Nede', value: 1 },
+                { label: 'Reflow Oven-Rehm', value: 2 },
+                { label: 'Selective Solder', value: 1 },
+                { label: 'Robot-Mirae', value: 1 },
+            ];
+
+            const chartContainer = document.getElementById('chart');
+            // Encontrar el valor máximo para escalar las barras
+            const maxValue = Math.max(...chartData.map(item => item.value));
+
+            // Generar dinámicamente cada barra en el gráfico
+            chartData.forEach(item => {
+                const barHeight = (item.value / maxValue) * 100;
+
+                const barElement = document.createElement('div');
+                barElement.className = 'flex-1 flex flex-col justify-end items-center min-w-[60px] group';
+                
+                barElement.innerHTML = `
+                    <span class="text-sm font-semibold text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">${item.value}</span>
+                    <div class="w-full bg-gray-500 rounded-t-md group-hover:bg-gray-400 transition-colors duration-300" style="height: ${barHeight}%;"></div>
+                    <span class="text-xs text-center text-gray-400 mt-2">${item.label}</span>
+                `;
+                
+                chartContainer.appendChild(barElement);
+            });
+
+            // Lógica para cerrar el modal (simulado)
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modal = document.getElementById('modal');
+            closeModalBtn.addEventListener('click', () => {
+                // En una aplicación real, esto eliminaría o escondería el modal
+                modal.style.display = 'none';
+                // Para demostración, lo volvemos a mostrar después de 2 segundos
+                setTimeout(() => { modal.style.display = 'block'; }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -29,12 +29,12 @@
       /* background: rgba(255, 255, 255, 0.05);  */
       background: rgba(255,255,255, 0.05);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08); /* Borde tenue */
       border-radius: 20px;
       padding: 1.5rem;
       /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);  */
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08); /* Borde tenue */
+      
     }
 
     .card h2 {
@@ -70,7 +70,23 @@
     .button:hover {
       background-color: #7b48ff;
     }
+
+
+    .Card_Buildindgs {
+    background: linear-gradient(135deg, #191919 0%, #242424 100%);
+    background: rgba(255,255,255, 0.05);
+    backdrop-filter: blur(20px);
+    /*box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);*/
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde tenue */
+    border-radius: 10px;
+    padding: 1rem;
+    /* width: 100%; */
+    &:hover{
+               cursor:pointer;
+           }
+}
   </style>
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css" />
 </head>
 <body>
 
@@ -80,6 +96,24 @@
       <div class="status green">246,22 GB disponibles</div>
       <button class="button">Liberar</button>
     </div>
+    <div class="Card_Buildindgs">
+                        <h2>
+                            <i class="fa-regular fa-building"></i>
+                            N01
+                        </h2>
+
+                        <span>
+                          
+                          <i class="fa-regular fa-industry-windows"></i>
+                          <span>Guadajalara south</span>
+                        </span>
+                        <div>
+                          <span><i class="fa-solid fa-users-viewfinder"></i> <span> gdjenrio</span> </span>
+                          <span><i class="fa-solid fa-calendar-day"></i> <span> viernes</span> </span>
+                          
+                        </div>
+
+                    </div>
 
     <div class="card">
       <h2>Memoria</h2>
