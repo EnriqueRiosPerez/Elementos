@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Eventos - CSS Puro</title>
+    <!-- Incluyendo la librería de iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Importando la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Reset y Estilos Base --- */
+        :root {
+            /* Paleta de colores para fácil mantenimiento */
+            --bg-dark: #111827;      /* bg-gray-900 */
+            --card-bg: #1f2937;     /* bg-gray-800 */
+            --card-block-bg: rgba(55, 65, 81, 0.5); /* bg-gray-700/50 */
+            --text-primary: #f9fafb;  /* text-white / gray-100 */
+            --text-secondary: #9ca3af;/* text-gray-400 */
+            --text-tertiary: #6b7280;/* text-gray-500 */
+            --brand-color: #818cf8;  /* text-indigo-400 */
+            --brand-highlight-bg: #4f46e5; /* bg-indigo-600 */
+
+            /* Colores de Estatus */
+            --green-text: #6ee7b7;   /* text-green-300 */
+            --green-bg: rgba(16, 185, 129, 0.2);
+            --yellow-text: #fde047;  /* text-yellow-300 */
+            --yellow-bg: rgba(234, 179, 8, 0.2);
+            --blue-text: #93c5fd;    /* text-blue-300 */
+            --blue-bg: rgba(59, 130, 246, 0.2);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            /* Centrando el contenido */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        /* --- Contenedor de las Tarjetas --- */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* --- Estilos de la Tarjeta Principal --- */
+        .event-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem; /* 16px */
+            padding: 1.5rem; /* 24px */
+            width: 100%;
+            max-width: 24rem; /* 384px */
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem; /* 20px */
+        }
+        
+        /* --- Cabecera de la Tarjeta --- */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h1 {
+            margin: 0;
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700;
+        }
+        
+        /* --- Tags de Estatus --- */
+        .status-tag {
+            font-size: 0.75rem; /* 12px */
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* fully rounded */
+        }
+
+        .status-green {
+            background-color: var(--green-bg);
+            color: var(--green-text);
+        }
+
+        .status-yellow {
+            background-color: var(--yellow-bg);
+            color: var(--yellow-text);
+        }
+
+        .status-blue {
+            background-color: var(--blue-bg);
+            color: var(--blue-text);
+        }
+        
+        /* --- Bloques de detalles (ID, Plan) --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem; /* 16px */
+        }
+
+        .detail-block {
+            background-color: var(--card-block-bg);
+            border-radius: 0.5rem; /* 8px */
+            padding: 1rem; /* 16px */
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem; /* 12px */
+        }
+        
+        .detail-block .icon {
+            color: var(--brand-color);
+            margin-top: 0.25rem;
+            width: 20px;
+            height: 20px;
+        }
+
+        .detail-block p {
+            margin: 0;
+        }
+
+        .detail-block .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .detail-block .value {
+            font-size: 1.125rem; /* 18px */
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* --- Sección de Ubicación --- */
+        .location-section {
+            background-color: var(--card-block-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .location-header .icon {
+            color: var(--brand-color);
+            width: 20px;
+            height: 20px;
+        }
+
+        .location-header h2 {
+            margin: 0;
+            font-size: 0.875rem; /* 14px */
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* --- Breadcrumb de Ubicación --- */
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem; /* gap for rows and columns */
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            background-color: #4b5563; /* bg-gray-600 */
+            border-radius: 0.375rem; /* 6px */
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem; /* 12px */
+            color: var(--text-primary);
+        }
+
+        .breadcrumb-item .icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.375rem;
+            color: var(--text-secondary);
+        }
+        
+        .breadcrumb-item.highlight {
+            background-color: var(--brand-highlight-bg);
+            font-weight: 700;
+        }
+        
+        .breadcrumb-separator {
+            width: 16px;
+            height: 16px;
+            color: var(--text-tertiary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="cards-container">
+
+        <!-- Tarjeta 1: Estatus Abierto -->
+        <div class="event-card">
+            <div class="card-header">
+                <h1>Detalles del Evento</h1>
+                <span class="status-tag status-green">Abierto</span>
+            </div>
+            <div class="details-grid">
+                <div class="detail-block">
+                    <i data-lucide="sliders-horizontal" class="icon"></i>
+                    <div>
+                        <p class="label">ID del Evento</p>
+                        <p class="value">11609</p>
+                    </div>
+                </div>
+                <div class="detail-block">
+                    <i data-lucide="clipboard-list" class="icon"></i>
+                    <div>
+                        <p class="label">Plan</p>
+                        <p class="value">Mensual</p>
+                    </div>
+                </div>
+            </div>
+            <div class="location-section">
+                <div class="location-header">
+                    <i data-lucide="map-pin" class="icon"></i>
+                    <h2>Ubicación</h2>
+                </div>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item"><i data-lucide="building-2" class="icon"></i><span>Edificio H02</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item"><i data-lucide="rows" class="icon"></i><span>Línea 3</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item"><i data-lucide="move-horizontal" class="icon"></i><span>Este</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item highlight"><i data-lucide="layout-grid" class="icon"></i><span>Área 15</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Estatus En Progreso -->
+        <div class="event-card">
+            <div class="card-header">
+                <h1>Detalles del Evento</h1>
+                <span class="status-tag status-yellow">En Progreso</span>
+            </div>
+            <!-- El resto del contenido es igual para demostración -->
+            <div class="details-grid">
+                <div class="detail-block"><i data-lucide="sliders-horizontal" class="icon"></i><div><p class="label">ID del Evento</p><p class="value">11610</p></div></div>
+                <div class="detail-block"><i data-lucide="clipboard-list" class="icon"></i><div><p class="label">Plan</p><p class="value">Semanal</p></div></div>
+            </div>
+            <div class="location-section">
+                <div class="location-header"><i data-lucide="map-pin" class="icon"></i><h2>Ubicación</h2></div>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item"><i data-lucide="building-2" class="icon"></i><span>Edificio T01</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item highlight"><i data-lucide="layout-grid" class="icon"></i><span>Zona Sur</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 3: Estatus Programado -->
+        <div class="event-card">
+            <div class="card-header">
+                <h1>Detalles del Evento</h1>
+                <span class="status-tag status-blue">Programado</span>
+            </div>
+             <!-- El resto del contenido es igual para demostración -->
+            <div class="details-grid">
+                <div class="detail-block"><i data-lucide="sliders-horizontal" class="icon"></i><div><p class="label">ID del Evento</p><p class="value">11611</p></div></div>
+                <div class="detail-block"><i data-lucide="clipboard-list" class="icon"></i><div><p class="label">Plan</p><p class="value">Anual</p></div></div>
+            </div>
+            <div class="location-section">
+                <div class="location-header"><i data-lucide="map-pin" class="icon"></i><h2>Ubicación</h2></div>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item"><i data-lucide="building-2" class="icon"></i><span>Edificio P04</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item"><i data-lucide="rows" class="icon"></i><span>Línea 8</span></div>
+                    <i data-lucide="chevron-right" class="breadcrumb-separator"></i>
+                    <div class="breadcrumb-item highlight"><i data-lucide="layout-grid" class="icon"></i><span>Área 02</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script para inicializar los iconos de Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

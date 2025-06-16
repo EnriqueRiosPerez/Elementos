@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Mantenimiento</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        /* Style for the active navigation link */
+        .sidebar-link.active {
+            background-color: #3b82f6; /* Blue-600 */
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        /* Animation for sidebar */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-800 text-slate-300">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-slate-900 shadow-xl flex flex-col fixed inset-y-0 left-0 z-30 md:relative md:translate-x-0 transform -translate-x-full md:shadow-none">
+            
+            <!-- Logo and Navigation -->
+            <div class="flex-1 flex flex-col">
+                <!-- Logo -->
+                <div class="flex items-center justify-center h-20 border-b border-slate-700/50">
+                    <div class="flex items-center space-x-3">
+                        <svg class="h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-4.243-4.243l3.275-3.275a4.5 4.5 0 00-6.336 4.486c.046.58.298 1.193.646 1.743m-5.108-.233a2.461 2.461 0 01-3.487 0l-1.011-1.011a2.461 2.461 0 010-3.487m0 0l-2.022-2.022a2.461 2.461 0 010-3.487l1.01-1.012a2.461 2.461 0 013.487 0l2.022 2.022m7.48-2.261l2.022-2.022a2.461 2.461 0 013.487 0l1.01 1.012a2.461 2.461 0 010 3.487l-2.021 2.022"/>
+                        </svg>
+                        <span class="text-2xl font-bold text-white">InduCtrl</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a href="#" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" /></svg>
+                        <span>Equipos</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75c0-.231-.035-.454-.1-.664M6.75 7.5h1.5v3h7.5V7.5h1.5v10.5a2.25 2.25 0 01-2.25 2.25h-9.75A2.25 2.25 0 014.5 18V7.5z" /></svg>
+                        <span>Órdenes de Trabajo</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" /></svg>
+                        <span>Reportes</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- User/System section -->
+            <div class="p-4 border-t border-slate-700/50 space-y-2">
+                 <a href="#" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-1.007 1.11-1.226.55-.22 1.156-.22 1.706 0 .55.22 1.02.684 1.11 1.226l.082.499a1.875 1.875 0 001.442 1.332l.51.17c.54.18.948.65 1.056 1.196.107.545.022 1.13-.224 1.583l-.34.465a1.875 1.875 0 00-.342 1.611l.248.54a1.875 1.875 0 01-.678 2.053l-.423.364a1.875 1.875 0 000 2.766l.423.364a1.875 1.875 0 01.678 2.053l-.248.54a1.875 1.875 0 00.342 1.611l.34.465c.246.453.331 1.038.224 1.583-.108.546-.516 1.016-1.056 1.196l-.51.17a1.875 1.875 0 00-1.442 1.332l-.082.499c-.09.542-.56 1.007-1.11 1.226-.55.22-1.156-.22-1.706 0-.55-.22-1.02-.684-1.11-1.226l-.082-.499a1.875 1.875 0 00-1.442-1.332l-.51-.17c-.54-.18-.948-.65-1.056-1.196-.107-.545-.022-1.13.224-1.583l.34-.465a1.875 1.875 0 00.342-1.611l-.248-.54a1.875 1.875 0 01-.678-2.053l.423-.364a1.875 1.875 0 000-2.766l-.423-.364a1.875 1.875 0 01-.678-2.053l.248-.54a1.875 1.875 0 00-.342-1.611l-.34-.465c-.246-.453-.331-1.038-.224-1.583.108-.546.516-1.016 1.056-1.196l.51-.17a1.875 1.875 0 001.442-1.332l.082-.499z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <span>Ajustes</span>
+                </a>
+                <div class="px-4 py-3">
+                     <div class="flex items-center space-x-3">
+                        <img src="https://placehold.co/40x40/3b82f6/FFFFFF?text=A" alt="Avatar de usuario" class="rounded-full h-10 w-10">
+                        <div>
+                            <p class="font-semibold text-white">Admin User</p>
+                            <p class="text-sm text-slate-400">Administrador</p>
+                        </div>
+                        <a href="#" title="Cerrar Sesión" class="ml-auto text-slate-400 hover:text-red-400 transition-colors duration-200">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col">
+             <!-- Header -->
+            <header class="bg-slate-900/70 backdrop-blur-sm shadow-md h-20 flex items-center justify-between px-6">
+                <!-- Mobile Menu Toggle -->
+                <button id="menu-toggle" class="md:hidden text-slate-400 hover:text-white">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                
+                <!-- Breadcrumbs/Title -->
+                <div class="hidden md:block">
+                    <h1 class="text-xl font-semibold text-white">Estado de Equipos</h1>
+                    <p class="text-sm text-slate-400">Resumen general del mantenimiento</p>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                     <!-- Search Bar -->
+                     <div class="relative hidden lg:block">
+                        <input type="text" placeholder="Buscar equipo..." class="bg-slate-700/50 border border-slate-600 rounded-full py-2 pl-10 pr-4 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                        <svg class="h-5 w-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 p-6 lg:p-8 overflow-y-auto">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Card 1: Equipos Operativos -->
+                    <div class="bg-slate-900/70 p-6 rounded-xl border border-slate-700 flex items-center space-x-4">
+                        <div class="bg-green-500/10 p-3 rounded-full">
+                            <svg class="h-7 w-7 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">Equipos Operativos</p>
+                            <p class="text-2xl font-bold text-white">128 / 135</p>
+                        </div>
+                    </div>
+                    <!-- Card 2: Mantenimiento Pendiente -->
+                    <div class="bg-slate-900/70 p-6 rounded-xl border border-slate-700 flex items-center space-x-4">
+                        <div class="bg-yellow-500/10 p-3 rounded-full">
+                            <svg class="h-7 w-7 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">Mantenimiento Pendiente</p>
+                            <p class="text-2xl font-bold text-white">12</p>
+                        </div>
+                    </div>
+                    <!-- Card 3: Alertas Críticas -->
+                    <div class="bg-slate-900/70 p-6 rounded-xl border border-slate-700 flex items-center space-x-4">
+                        <div class="bg-red-500/10 p-3 rounded-full">
+                            <svg class="h-7 w-7 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">Alertas Críticas</p>
+                            <p class="text-2xl font-bold text-white">3</p>
+                        </div>
+                    </div>
+                    <!-- Card 4: Uptime -->
+                     <div class="bg-slate-900/70 p-6 rounded-xl border border-slate-700 flex items-center space-x-4">
+                        <div class="bg-blue-500/10 p-3 rounded-full">
+                             <svg class="h-7 w-7 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400">Uptime Promedio</p>
+                            <p class="text-2xl font-bold text-white">97.8%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Table -->
+                <div class="bg-slate-900/70 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="p-6 border-b border-slate-700">
+                      <h2 class="text-lg font-semibold text-white">Lista de Equipos</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-900 text-xs text-slate-400 uppercase">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Equipo / ID</th>
+                                    <th scope="col" class="px-6 py-3">Ubicación</th>
+                                    <th scope="col" class="px-6 py-3">Estado</th>
+                                    <th scope="col" class="px-6 py-3">Último Mant.</th>
+                                    <th scope="col" class="px-6 py-3">Próximo Mant.</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table Row 1 -->
+                                <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                        Prensa Hidráulica <span class="block font-normal text-slate-400">PH-25</span>
+                                    </th>
+                                    <td class="px-6 py-4">Planta 1 - Prensado</td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                            <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                                            Operativo
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">2024-05-15</td>
+                                    <td class="px-6 py-4">2024-11-15</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-400 hover:text-blue-300">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                                <!-- Table Row 2 -->
+                                <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                        Torno CNC <span class="block font-normal text-slate-400">CNC-12</span>
+                                    </th>
+                                    <td class="px-6 py-4">Planta 1 - Maquinado</td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center bg-yellow-500/10 text-yellow-400 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                            <span class="w-2 h-2 me-1 bg-yellow-500 rounded-full"></span>
+                                            Mant. Programado
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">2024-06-01</td>
+                                    <td class="px-6 py-4">2024-06-25</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-400 hover:text-blue-300">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                                <!-- Table Row 3 -->
+                                <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                        Compresor de Aire <span class="block font-normal text-slate-400">CA-05</span>
+                                    </th>
+                                    <td class="px-6 py-4">Planta 2 - Compresores</td>
+                                     <td class="px-6 py-4">
+                                        <span class="inline-flex items-center bg-red-500/10 text-red-400 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                            <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                                            Falla Detectada
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">2024-03-10</td>
+                                    <td class="px-6 py-4">N/A</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-400 hover:text-blue-300">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                                <!-- Table Row 4 -->
+                                <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                        Robot de Soldadura <span class="block font-normal text-slate-400">RS-A7</span>
+                                    </th>
+                                    <td class="px-6 py-4">Planta 1 - Ensamblaje</td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                            <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                                            Operativo
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">2024-06-10</td>
+                                    <td class="px-6 py-4">2024-12-10</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-400 hover:text-blue-300">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                                 <!-- Table Row 5 -->
+                                <tr class="hover:bg-slate-800/50">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                        Caldera de Vapor <span class="block font-normal text-slate-400">BV-01</span>
+                                    </th>
+                                    <td class="px-6 py-4">Planta 2 - Calderas</td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center bg-gray-500/10 text-gray-400 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                            <span class="w-2 h-2 me-1 bg-gray-500 rounded-full"></span>
+                                            Fuera de Servicio
+                                        </span> 
+                                    </td>
+                                    <td class="px-6 py-4">2023-12-20</td>
+                                    <td class="px-6 py-4">2025-01-15</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-400 hover:text-blue-300">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // --- Mobile Sidebar Toggle ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Close sidebar if clicked outside on mobile
+         document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                if(!sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

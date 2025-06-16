@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Mantenimiento Preventivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* --- Reset y Estilos Base --- */
+        :root {
+            --bg-main: #1c1c1c;
+            --bg-card: #2a2a2a;
+            --bg-element: #383838;
+            --bg-element-hover: #4a4a4a;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --color-blue: #60a5fa;
+            --color-green: #4ade80;
+            --color-teal: #2dd4bf;
+            --color-orange: #fb923c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        /* --- Contenedor Principal --- */
+        .container {
+            width: 100%;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .maintenance-card {
+            background-color: var(--bg-card);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        /* --- Encabezado --- */
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .department-info h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .department-info .icon {
+            color: var(--color-blue);
+        }
+
+        .department-info p, .date-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .date-info {
+            background-color: var(--bg-element);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-align: right;
+        }
+        
+        .date-info .date-value {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+
+        .date-info p {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+
+        /* --- Cuerpo de la Tarjeta --- */
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .body-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .body-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .close-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            background-color: var(--bg-element);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .close-button:hover {
+            background-color: var(--bg-element-hover);
+            color: var(--text-primary);
+        }
+
+        /* --- Grid de Contenido --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .info-column {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        /* --- Tarjetas de Información --- */
+        .info-card {
+            background-color: var(--bg-element);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .info-card .icon-wrapper {
+            background-color: var(--bg-element-hover);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+        }
+
+        .info-card .info-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .info-card .info-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .info-card .info-value.large {
+            font-size: 1.875rem;
+        }
+
+        /* --- Tarjeta de Ubicación --- */
+        .location-card {
+             background-color: var(--bg-element);
+             padding: 1rem;
+             border-radius: 0.75rem;
+        }
+        
+        .location-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .location-grid .label {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .location-grid .value {
+            font-weight: 700;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 0.25rem;
+            padding: 0.25rem 0;
+            margin-top: 0.25rem;
+        }
+
+
+        /* --- Columna de Progreso --- */
+        .progress-column {
+            background-color: var(--bg-element);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .progress-column h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-column .icon {
+            color: var(--color-green);
+        }
+
+        /* --- Círculo de Progreso --- */
+        .progress-circle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle .circle-bg {
+            fill: none;
+            stroke: var(--border-color);
+        }
+
+        .progress-circle .circle-progress {
+            fill: none;
+            stroke: var(--color-green);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease-out;
+            /* El 100% de progreso = 0 offset */
+            stroke-dashoffset: 0; 
+        }
+
+        .progress-text {
+            position: absolute;
+            text-align: center;
+        }
+        
+        .progress-text .completed-count {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-green);
+        }
+        
+        .progress-text .total-count {
+            color: var(--text-secondary);
+        }
+
+        .progress-text .status {
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        /* --- Media Queries para Responsividad --- */
+        @media (min-width: 768px) {
+            .card-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            .info-column {
+                grid-template-columns: repeat(2, 1fr);
+            }
+             .location-card {
+                grid-column: 1 / -1; /* Ocupa ambas columnas */
+            }
+             .location-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="maintenance-card">
+            <!-- Encabezado -->
+            <header class="card-header">
+                <div class="department-info">
+                    <p>Departamento</p>
+                    <h1>
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </span>
+                        Mantenimiento Preventivo
+                    </h1>
+                </div>
+                <div class="date-info">
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Fecha Programada
+                    </p>
+                    <p class="date-value">2025-06-12</p>
+                </div>
+            </header>
+
+            <!-- Cuerpo -->
+            <main class="card-body">
+                <div class="body-header">
+                    <h2>Detalles del Evento</h2>
+                    <button class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        Cerrar
+                    </button>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Columna Izquierda: Información -->
+                    <div class="info-column">
+                        <div class="info-card">
+                            <div class="icon-wrapper" style="color: var(--color-teal);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+                            </div>
+                            <div>
+                                <p class="info-title">ID del Evento</p>
+                                <p class="info-value large">11595</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="icon-wrapper" style="color: var(--color-orange);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="info-title">Plan de Mantenimiento</p>
+                                <p class="info-value large">Mensual</p>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                Ubicación y Equipo
+                            </h3>
+                            <div class="location-grid">
+                                <div>
+                                    <p class="label">Nave</p>
+                                    <p class="value">N01</p>
+                                </div>
+                                <div>
+                                    <p class="label">Línea</p>
+                                    <p class="value">L04</p>
+                                </div>
+                                <div>
+                                    <p class="label">Área</p>
+                                    <p class="value">Toda la línea</p>
+                                </div>
+                                <div>
+                                    <p class="label">Equipo</p>
+                                    <p class="value">Todos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Progreso -->
+                    <div class="progress-column">
+                        <h3>
+                             <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                             </span>
+                             Progreso de Tareas
+                        </h3>
+                        <div class="progress-circle">
+                            <svg height="170" width="170">
+                                <circle class="circle-bg" stroke-width="10" r="65" cx="85" cy="85" />
+                                <circle class="circle-progress" stroke-width="10" stroke-dasharray="408.4" r="65" cx="85" cy="85" />
+                            </svg>
+                            <div class="progress-text">
+                                <span class="completed-count">117</span>
+                                <p class="total-count">de 117</p>
+                                <p class="status">Completados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>

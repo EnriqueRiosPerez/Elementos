@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diálogo con Notificaciones</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf/notyf.min.css">
+    <style>
+        #notificaciones {
+            position: relative;
+        }
+        #miDialogo::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            
+        }
+    </style>
+</head>
+<body>
+    <dialog id="miDialogo">
+        <h2>Diálogo con Notificaciones</h2>
+        <div id="notificaciones"></div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
+    <script>
+        // Inicializar Notyf
+        const notyf = new Notyf({
+            container: {
+                selector: '#notificaciones'
+            }
+        });
+
+        // Mostrar el diálogo
+        const dialogo = document.getElementById('miDialogo');
+        dialogo.showModal();
+
+        // Agregar una notificación
+        notyf.success('¡Notificación exitosa!');
+    </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rediseño de UI para Mantenimiento Preventivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Lighter slate background */
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        
+        /* Donut Chart styles */
+        .donut-chart-container {
+            position: relative;
+            width: 220px;
+            height: 110px; /* Half height for semi-circle */
+            overflow: hidden;
+        }
+        .donut-chart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .donut-segment {
+            fill: none;
+            stroke-linecap: round;
+            stroke-width: 24;
+            transition: stroke-dasharray 0.8s ease-out;
+        }
+        .donut-background {
+            fill: none;
+            stroke: #e2e8f0; /* Chart background color */
+            stroke-width: 24;
+        }
+        .donut-center-text {
+            position: absolute;
+            bottom: 5px; /* Adjust to be at the bottom of the semi-circle */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in">
+
+        <!-- Header Info Section -->
+        <section class="mb-8">
+             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900">Mantenimiento Preventivo</h1>
+                    <p class="text-slate-500 mt-1">ID del Evento: <span class="font-semibold text-slate-600">11609</span></p>
+                </div>
+                <div class="text-sm mt-4 md:mt-0 bg-white p-3 px-4 rounded-lg border border-slate-200">
+                    <span class="font-semibold text-slate-700">Fecha Prog:</span> 06 / Noviembre / 2025
+                </div>
+            </div>
+            
+            <!-- Combined Summary and Chart Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <!-- Info Details -->
+                <div class="lg:col-span-1 space-y-3 text-sm">
+                    <div>
+                        <h3 class="font-semibold text-slate-500">Ubicación</h3>
+                        <p class="text-slate-800 font-medium">Edificio H02 / Hyperion Machine</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-500">Línea / Área</h3>
+                        <p class="text-slate-800 font-medium">Conveyor / Lado Izquierdo</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-slate-500">Plan de Mantenimiento</h3>
+                        <p class="text-slate-800 font-medium">Mensual</p>
+                    </div>
+                </div>
+
+                <!-- Donut Chart & Legend -->
+                <div class="lg:col-span-2 flex flex-col sm:flex-row items-center justify-center gap-8">
+                    <div class="relative">
+                        <div class="donut-chart-container">
+                            <svg viewBox="0 0 220 110" class="donut-chart">
+                                <!-- Background semi-circle -->
+                                <path class="donut-background" d="M 20 100 A 90 90 0 0 1 200 100" />
+                                
+                                <!-- Segments -->
+                                <!-- Overdue (Vencido) - 2 of 128 = 1.56% -->
+                                <path class="donut-segment" stroke="#ef4444" d="M 20 100 A 90 90 0 0 1 200 100" stroke-dasharray="4.4 282.7" transform="rotate(180 110 110)"/>
+                                <!-- Pending (Pendiente) - 31 of 128 = 24.2% -->
+                                <path class="donut-segment" stroke="#f59e0b" d="M 20 100 A 90 90 0 0 1 200 100" stroke-dasharray="68.4 282.7" transform="rotate(183.5 110 110)"/> <!-- 180 + (1.56/100 * 180) -->
+                                <!-- Completed (Completado) - 95 of 128 = 74.2% -->
+                                <path class="donut-segment" stroke="#22c55e" d="M 20 100 A 90 90 0 0 1 200 100" stroke-dasharray="209.9 282.7" transform="rotate(227.1 110 110)"/> <!-- 180 + (1.56+24.2)/100 * 180 -->
+                            </svg>
+                        </div>
+                        <div class="donut-center-text">
+                            <p class="text-3xl font-bold text-slate-900">128</p>
+                            <p class="text-slate-500 font-medium">Equipos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 text-sm font-medium">
+                        <div class="flex items-center">
+                            <span class="h-3 w-3 rounded-full bg-green-500 mr-3"></span>
+                            <span class="text-slate-700">Completado:</span>
+                            <span class="font-bold ml-1 text-slate-800">95</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="h-3 w-3 rounded-full bg-amber-500 mr-3"></span>
+                            <span class="text-slate-700">Pendiente:</span>
+                            <span class="font-bold ml-1 text-slate-800">31</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="h-3 w-3 rounded-full bg-red-500 mr-3"></span>
+                            <span class="text-slate-700">Vencido:</span>
+                            <span class="font-bold ml-1 text-slate-800">2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content: Table and Filters -->
+        <main class="bg-white rounded-xl shadow-sm border border-slate-200">
+            <!-- Toolbar -->
+            <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" placeholder="Buscar por ID, Máquina..." class="pl-10 pr-4 py-2 w-full sm:w-64 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    </div>
+                     <button id="filter-btn" class="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50">
+                        <i class="fa-solid fa-filter text-slate-500"></i>
+                        <span>Filtros</span>
+                    </button>
+                </div>
+                <button class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Agregar Equipo</span>
+                </button>
+            </div>
+            
+            <!-- Advanced Filters (Hidden by default) -->
+            <div id="filter-panel" class="hidden p-4 border-b border-slate-200 bg-slate-50 animate-fade-in">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="building" class="block text-sm font-medium text-slate-600 mb-1">Edificio/Línea</label>
+                        <select id="building" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                            <option>Todos</option>
+                            <option>Edificio H02</option>
+                            <option>Edificio H03</option>
+                            <option>Línea de Empaque</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="area" class="block text-sm font-medium text-slate-600 mb-1">Área/Lado</label>
+                        <select id="area" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                            <option>Todos</option>
+                            <option>Lado Izquierdo (LI)</option>
+                            <option>Lado Derecho (LD)</option>
+                            <option>Conveyor</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="status-filter" class="block text-sm font-medium text-slate-600 mb-1">Estado</label>
+                        <select id="status-filter" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                            <option>Todos</option>
+                            <option>Completado</option>
+                            <option>Pendiente</option>
+                            <option>Vencido</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 font-medium">Equipo</th>
+                            <th scope="col" class="px-6 py-3 font-medium">Ubicación</th>
+                            <th scope="col" class="px-6 py-3 font-medium">N/S</th>
+                            <th scope="col" class="px-6 py-3 font-medium">Estado</th>
+                            <th scope="col" class="px-6 py-3 font-medium">Fecha Prog.</th>
+                            <th scope="col" class="px-6 py-3 font-medium text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Row 1 - Completed -->
+                        <tr class="bg-white border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-900">Conveyor Principal</div>
+                                <div class="text-slate-500">ID: Fixo-PM453</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="font-medium">H02 / Conveyor</div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-500 font-mono text-xs">11553-0A67-F1</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                    <i class="fa-solid fa-circle-check mr-1.5"></i>Completado
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-slate-600">06/11/2025</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="text-slate-500 hover:text-blue-600 p-2 rounded-full hover:bg-slate-100">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Sample Row 2 - Pending -->
+                        <tr class="bg-white border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-900">Empacadora Automática</div>
+                                <div class="text-slate-500">ID: Fixo-PM454</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="font-medium">H02 / LI</div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-500 font-mono text-xs">2454-0125-B4</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                                    <i class="fa-solid fa-clock mr-1.5"></i>Pendiente
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-slate-600">15/11/2025</td>
+                            <td class="px-6 py-4 text-center">
+                               <button class="text-slate-500 hover:text-blue-600 p-2 rounded-full hover:bg-slate-100">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+                         <!-- Sample Row 3 - Overdue -->
+                        <tr class="bg-white border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-900">Selector PnP</div>
+                                <div class="text-slate-500">ID: Fixo-PM471</div>
+                            </td>
+                            <td class="px-6 py-4">
+                               <div class="font-medium">H03 / Selector Pillar</div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-500 font-mono text-xs">P126-5539-X9</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Vencido
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-red-600 font-bold">01/06/2025</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="text-slate-500 hover:text-blue-600 p-2 rounded-full hover:bg-slate-100">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="p-4 flex items-center justify-between flex-wrap gap-4">
+                <span class="text-sm text-slate-500">Mostrando <span class="font-semibold">1-3</span> de <span class="font-semibold">128</span> resultados</span>
+                <div class="flex items-center gap-2">
+                    <button class="px-3 py-1 border border-slate-300 rounded-lg hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Anterior
+                    </button>
+                    <button class="px-3 py-1 border border-slate-300 rounded-lg hover:bg-slate-100">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('filter-btn').addEventListener('click', function() {
+            const filterPanel = document.getElementById('filter-panel');
+            filterPanel.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

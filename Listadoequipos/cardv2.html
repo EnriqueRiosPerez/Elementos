@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Evento de Mantenimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#1A1A1A] flex items-center justify-center min-h-screen p-4">
+    <!-- Contenedor principal de la tarjeta -->
+    <div class="w-full max-w-2xl bg-[#252525] rounded-xl shadow-2xl p-6 md:p-8 border border-[#333333]">
+
+        <!-- Cabecera de la tarjeta -->
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-100">Detalles del Mantenimiento</h1>
+            <div class="flex items-center space-x-3 mt-3 sm:mt-0">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#A3E635]/20 text-[#D9F99D]">
+                    <span class="w-2 h-2 mr-2 bg-[#A3E635] rounded-full"></span>
+                    Abierto
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#F97316]/20 text-[#FDBA74]">
+                    Prioridad Alta
+                </span>
+            </div>
+        </header>
+
+        <!-- Grid de Información Principal -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+            <!-- Bloque de Información: ID -->
+            <div class="flex items-start space-x-4">
+                <div class="bg-[#3A3A3A] p-3 rounded-lg flex-shrink-0">
+                    <!-- Icono de ID o Configuración -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders-horizontal"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-400">ID del Evento</p>
+                    <p class="text-lg font-semibold text-gray-100">11599</p>
+                </div>
+            </div>
+
+            <!-- Bloque de Información: Plan -->
+            <div class="flex items-start space-x-4">
+                 <div class="bg-[#3A3A3A] p-3 rounded-lg flex-shrink-0">
+                    <!-- Icono de Checklist o Plan -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-check"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-400">Plan de Mantenimiento</p>
+                    <p class="text-lg font-semibold text-gray-100">Mensual - Limpieza General</p>
+                </div>
+            </div>
+            
+            <!-- Bloque de Información: Fecha -->
+            <div class="flex items-start space-x-4">
+                <div class="bg-[#3A3A3A] p-3 rounded-lg flex-shrink-0">
+                    <!-- Icono de Calendario -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-clock"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M17.5 17.5 16 16.25V14"/><path d="M22 16a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-400">Fecha Límite</p>
+                    <p class="text-lg font-semibold text-gray-100">15 de Diciembre, 2024 - 17:00h</p>
+                </div>
+            </div>
+            
+             <!-- Bloque de Información: Asignado -->
+            <div class="flex items-start space-x-4">
+                <div class="bg-[#3A3A3A] p-3 rounded-lg flex-shrink-0">
+                    <!-- Icono de Usuario -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-cog"><circle cx="18" cy="15" r="3"/><circle cx="9" cy="7" r="4"/><path d="M12 15h1.5a4.5 4.5 0 0 0 0-9H9a4 4 0 0 0-3.68 2.33"/><path d="M21.14 20.46A6 6 0 0 0 15 17.75"/><path d="m19.5 22-2.5-2.5"/><path d="m22 19.5-2.5-2.5"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-400">Asignado a</p>
+                    <p class="text-lg font-semibold text-gray-100">Ricardo Morales</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Ubicación con Breadcrumb mejorado -->
+        <div class="mb-8">
+            <p class="text-sm font-medium text-gray-400 mb-3">Ubicación y Activo</p>
+            <div class="flex items-center text-gray-300 bg-[#3A3A3A] p-4 rounded-lg border border-[#444444]">
+                <!-- Icono de Edificio -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building-2 flex-shrink-0"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                <span class="mx-2 text-gray-500">/</span>
+                <span class="font-medium">Nave 03</span>
+                <span class="mx-2 text-gray-500">/</span>
+                <!-- Icono de Línea de Producción -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-factory flex-shrink-0"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg>
+                <span class="mx-2 text-gray-500">/</span>
+                <span class="font-medium">Línea 02 SMT</span>
+                <span class="mx-2 text-gray-500">/</span>
+                <!-- Icono de Equipo/Activo -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu flex-shrink-0"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M12 2v2"/><path d="M12 20v2"/></svg>
+                 <span class="ml-2 font-semibold text-white">Horno de Reflujo #1</span>
+            </div>
+        </div>
+
+        <!-- Sección de Acciones -->
+        <footer class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 border-t border-[#3A3A3A]">
+            <button class="w-full sm:w-auto bg-[#3A3A3A] hover:bg-[#4A4A4A] text-gray-200 font-semibold py-2 px-5 rounded-lg transition-colors">
+                Ver Historial
+            </button>
+            <button class="w-full sm:w-auto bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold py-2 px-5 rounded-lg transition-colors">
+                Iniciar Tarea
+            </button>
+        </footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Ubicaciones - UI Mejorada</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Usar la fuente Inter como predeterminada */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Pequeño ajuste para transiciones suaves */
+        .transition-all {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Cabecera y Acciones Principales -->
+        <header class="mb-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Ubicaciones</h1>
+                    <p class="text-gray-400 mt-1">Gestiona tus edificios, líneas y áreas desde un solo lugar.</p>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                     <!-- Input de Búsqueda -->
+                    <div class="relative w-full sm:w-64">
+                         <input type="text" id="searchInput" placeholder="Buscar ubicación..." class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-2.5 transition-all">
+                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                         </div>
+                    </div>
+                     <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-lg flex items-center gap-2 transition-all flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Métricas Principales -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Card 1: Total Buildings -->
+            <div class="bg-gray-800 p-6 rounded-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Total Buildings</p>
+                        <p class="text-3xl font-bold text-white">18</p>
+                    </div>
+                    <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    </div>
+                </div>
+                 <p class="text-xs text-green-400 mt-2">+2 este mes</p>
+            </div>
+            <!-- Card 2: Total Lines -->
+            <div class="bg-gray-800 p-6 rounded-xl">
+                 <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Total Lines</p>
+                        <p class="text-3xl font-bold text-white">42</p>
+                    </div>
+                    <div class="bg-sky-600/20 text-sky-400 p-3 rounded-lg">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 6h20"/><path d="M2 18h20"/></svg>
+                    </div>
+                </div>
+                 <p class="text-xs text-gray-400 mt-2">Sin cambios</p>
+            </div>
+            <!-- Card 3: Total Areas -->
+            <div class="bg-gray-800 p-6 rounded-xl">
+                 <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Total Areas</p>
+                        <p class="text-3xl font-bold text-white">125</p>
+                    </div>
+                    <div class="bg-amber-600/20 text-amber-400 p-3 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3H3v18h18V3zM15 9h-6v6h6V9z"/></svg>
+                    </div>
+                </div>
+                 <p class="text-xs text-green-400 mt-2">+12 este mes</p>
+            </div>
+        </section>
+
+        <!-- Pestañas de Navegación -->
+        <div class="mb-8">
+            <div class="border-b border-gray-700">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <a href="#" class="shrink-0 border-b-2 border-indigo-500 px-1 py-4 text-sm font-medium text-indigo-400 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        Buildings
+                    </a>
+                    <a href="#" class="shrink-0 border-b-2 border-transparent px-1 py-4 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-300 flex items-center gap-2">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 6h20"/><path d="M2 18h20"/></svg>
+                        Lines
+                    </a>
+                    <a href="#" class="shrink-0 border-b-2 border-transparent px-1 py-4 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-300 flex items-center gap-2">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3H3v18h18V3zM15 9h-6v6h6V9z"/></svg>
+                        Areas
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Grid de Ubicaciones -->
+        <main id="locations-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <!-- Las tarjetas de ubicación se generarán aquí con JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locations = [
+                { name: 'N01', area: 'Guadalajara South', user: 'gdjenrio', date: '2021-10-18' },
+                { name: 'N02', area: 'Guadalajara South', user: 'gdjenrio', date: '2021-10-18' },
+                { name: 'Central Ware House', area: 'Guadalajara South', user: 'gdjenrio', date: '2023-08-16' },
+                { name: 'Laboratorio Tooling', area: 'Guadalajara South', user: 'gdjenrio', date: '2025-04-02' },
+                { name: 'N03', area: 'Zapopan North', user: 'a-user', date: '2022-11-01' },
+                { name: 'N04', area: 'Tlaquepaque Center', user: 'b-user', date: '2022-11-05' },
+                { name: 'N05', area: 'Guadalajara South', user: 'c-user', date: '2022-11-10' },
+                { name: 'N06', area: 'Guadalajara South', user: 'd-user', date: '2022-11-15' },
+                { name: 'N07', area: 'Zapopan North', user: 'e-user', date: '2022-11-20' },
+                { name: 'N08', area: 'Tlaquepaque Center', user: 'f-user', date: '2022-11-25' },
+                { name: 'JW1', area: 'Guadalajara South', user: 'g-user', date: '2022-12-01' },
+                { name: 'JW2', area: 'Zapopan North', user: 'h-user', date: '2022-12-05' },
+                { name: 'JW3', area: 'Tlaquepaque Center', user: 'i-user', date: '2022-12-10' },
+                { name: 'JW4', area: 'Guadalajara South', user: 'j-user', date: '2022-12-15' },
+                { name: 'B12', area: 'Zapopan North', user: 'k-user', date: '2023-01-01' },
+                { name: 'N10', area: 'Tlaquepaque Center', user: 'l-user', date: '2023-01-05' },
+                { name: 'ToolCrib', area: 'Guadalajara South', user: 'm-user', date: '2023-01-10' },
+            ];
+
+            const grid = document.getElementById('locations-grid');
+            const searchInput = document.getElementById('searchInput');
+
+            // Función para renderizar las tarjetas
+            function renderCards(filter = '') {
+                grid.innerHTML = ''; // Limpiar el grid
+                const lowerCaseFilter = filter.toLowerCase();
+
+                const filteredLocations = locations.filter(location => {
+                    return location.name.toLowerCase().includes(lowerCaseFilter) || 
+                           location.area.toLowerCase().includes(lowerCaseFilter);
+                });
+
+                if (filteredLocations.length === 0) {
+                    grid.innerHTML = `<p class="text-gray-400 col-span-full text-center">No se encontraron ubicaciones.</p>`;
+                    return;
+                }
+
+                filteredLocations.forEach(location => {
+                    const cardHTML = `
+                        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all group">
+                            <div class="p-5">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="bg-gray-700 p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white">${location.name}</h3>
+                                        <p class="text-sm text-gray-400">${location.area}</p>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-400 space-y-2">
+                                    <p><span class="font-semibold text-gray-300">Usuario:</span> ${location.user}</p>
+                                    <p><span class="font-semibold text-gray-300">Fecha:</span> ${location.date}</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-800/50 px-5 py-3 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="text-gray-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                <button class="text-gray-400 hover:text-red-500 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += cardHTML;
+                });
+            }
+
+            // Evento para el input de búsqueda
+            searchInput.addEventListener('input', (e) => {
+                renderCards(e.target.value);
+            });
+
+            // Renderizado inicial
+            renderCards();
+        });
+    </script>
+</body>
+</html>
